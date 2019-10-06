@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="279" viewBox="0 0 400 279">
+  <defs>
+    <style>
+      .cls-1, .cls-5, .cls-6 {
+        fill: #1450a0;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4 {
+        fill-rule: evenodd;
+      }
+
+      .cls-2 {
+        fill: #ffc800;
+      }
+
+      .cls-3 {
+        fill: #e63232;
+      }
+
+      .cls-4 {
+        fill: #96c81e;
+      }
+
+      .cls-5 {
+        font-size: 63.885px;
+      }
+
+      .cls-5, .cls-6 {
+        text-anchor: middle;
+        font-family: ArialNarrow-Bold, Arial;
+        font-weight: 700;
+      }
+
+      .cls-6 {
+        font-size: 63.5px;
+      }
+    </style>
+  </defs>
+  <path id="Form_1" class="cls-1" d="M1,114H30v35H56V114H85v96H56V174H30v36H1V114Zm95,0v23h27v73h30V137h27V114H96Zm124,0H190v96h96V180H220m16-66v50h50V114H236ZM190,97h96"/>
+  <path id="Form_2" class="cls-2" d="M286,1H190V97h96M303,1V97"/>
+  <path id="Form_3" class="cls-3" d="M303,1V97h96V1H303Z"/>
+  <path id="Form_4" class="cls-4" d="M303,115l96-1v96H303V115Zm113,6"/>
+  <path id="Form_5" class="cls-1" d="M1,230l12,48h9l8-33h1l8,33h8l13-48H50l-6,33H43l-9-33H27l-9,33H17l-7-33H1Z"/>
+  <path id="Form_6" class="cls-1" d="M57,278h9l4-10H87l4,10h10L83,230H74Zm15-18H86l-7-19Z"/>
+  <text id="D" class="cls-5" transform="translate(161.345 278.168) scale(1.195 1.044)"><tspan x="0">D</tspan></text>
+  <path id="Form_7" class="cls-1" d="M105,270v8h29v-8H124V238h10v-8H105v8h10v32"/>
+  <path id="Form_8" class="cls-1" d="M188,278h9V257h19v21h9V230h-9v19H197V230h-9v48Z"/>
+  <path id="Form_9" class="cls-1" d="M281,230v48h8V257h20v-7H289V238h23v-8H281Z"/>
+  <path id="Form_10" class="cls-1" d="M320,230v48h33v-8H328V257h22v-7H328V238h25v-8H320Z"/>
+  <path id="Form_11" class="cls-1" d="M361,278V230h9c-0.059.04,20.688,33.214,21,33V230h9v48h-9l-21-32h0v32h-9Zm30-15"/>
+  <text id="O" class="cls-6" transform="translate(252.904 277.042) scale(1.065 1.043)"><tspan x="0">O</tspan></text>
+</svg>

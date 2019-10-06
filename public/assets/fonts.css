@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Aileron-Regular;
+    src: url("../fonts/Aileron-Regular.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Aileron-Bold;
+    font-weight: bold;
+    src: url("../fonts/Aileron-Bold.otf") format("opentype");
+}
+
+@font-face {
+    font-family: Aileron-Italic;
+    font-style: italic;
+    src: url("../fonts/Aileron-Italic.otf") format("opentype");
+}
