@@ -3,18 +3,20 @@
 <head id="head">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="Das ist die Hauptseite des Smartblocks-Projekts." name="description">
-    <meta content="Maximilian Mernacher und Lukas Kamleitner" name="author">
+    <meta content="This is the main site of the 'Smartblock' project. It displays every registered block and lets you access it's properties."
+          name="description">
+    <meta content="Maximilian Mernacher & Lukas Kamleitner" name="author">
 
 
     <title>Smartblocks</title>
 
+    <link href="/stylesheets/index.css" rel="stylesheet">
 
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    <link defer crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
     <link href="/assets/fonts.css" rel="stylesheet">
 
-    <script crossorigin="anonymous"
+    <script defer crossorigin="anonymous"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script crossorigin="anonymous"
             integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -23,12 +25,12 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
             src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-    <script src="//wurfl.io/wurfl.js" type="text/javascript"></script>
 
 
     <script src="/javascripts/libs/particles.min.js" type="text/javascript"></script>
 
 
+    <script src="/javascripts/logger.js" type="text/javascript"></script>
     <script src="/javascripts/index.js" type="text/javascript"></script>
 
     <link href="/images/favicon.svg" rel="icon" type="image/svg+xml">
@@ -36,222 +38,22 @@
     <link href="/images/favicon32x32.png" rel="icon" sizes="32x32" type="image/png">
     <link href="/images/favicon16x16.png" rel="icon" sizes="16x16" type="image/png">
 
-    <style>
-        #body canvas {
-
-            position: fixed;
-            width: 100%;
-            height: 100%;
-            background-color: #111111;
-        }
-
-        @media (min-width: 992px) {
-            .card {
-
-                display: inline-block;
-                position: relative;
-                width: 250px !important;
-                height: 350px !important;
-                margin: 10px;
-
-                /*background-image: url("/images/pre-image-card.png");*/
-                background: no-repeat url("images/pre-image-card.png");
-
-                /*border: #ffffff 1px solid;*/
-                border: 1px solid #ffffff;
-                border-radius: 0px;
-
-
-                z-index: 0;
-                top: 0;
-            }
-
-
-            .card canvas {
-                display: block;
-                top: -1px !important;
-                left: -1px !important;
-
-                z-index: 0 !important;
-                border: 1px solid #ffffff;
-            }
-
-            .card button {
-                margin: 20px auto 10px auto;
-                width: 75%;
-                height: 50px;
-                background: linear-gradient(90grad, #2d4565, #414c4e);
-                border-radius: 20px;
-                font-size: 1.25rem;
-            }
-
-            .card img {
-                margin: 20px auto auto auto;
-                width: 66%;
-            }
-
-            .card p {
-                margin: 10px auto 10px auto;
-                text-align: center;
-                font-size: 1.25rem;
-            }
-
-            .card * {
-                display: block;
-                z-index: 1;
-            }
-        }
-
-        @media (max-width: 992px) {
-            .card {
-                display: inline-block;
-                position: relative;
-                width: 125px !important;
-                height: 175px !important;
-                margin: 10px;
-
-                /*background-image: url("/images/pre-image-card.png");*/
-                background: no-repeat url("images/pre-image-card.png");
-
-                /*border: #ffffff 1px solid;*/
-                border: 1px solid #ffffff;
-                border-radius: 0px;
-
-
-                z-index: 0;
-                top: 0;
-            }
-
-            .card canvas {
-                display: block;
-                top: -1px !important;
-                left: -1px !important;
-
-                z-index: 0 !important;
-                border: 1px solid #ffffff;
-            }
-
-            .card button {
-                margin: auto auto 5px auto;
-                width: 75%;
-                height: 25px;
-                background: linear-gradient(90grad, #2d4565, #414c4e);
-                border-radius: 10px;
-                font-size: .75rem;
-            }
-
-            .card img {
-                margin: 10px auto auto auto;
-                width: 66%;
-            }
-
-            .card p {
-                margin: 5px auto 5px auto;
-                text-align: center;
-                font-size: .75rem;
-            }
-
-            .card * {
-                display: block;
-                z-index: 1;
-            }
-        }
-
-
-        @media (max-width: 992px){
-
-
-            .redicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: red;
-                padding: 5px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-
-            .unknownicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: #808080;
-                padding: 5px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-
-            .greenicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: #00ff09;
-                padding: 5px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-        }
-
-        @media (min-width: 992px){
-
-
-            .redicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: red;
-                padding: 10px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-
-            .unknownicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: #808080;
-                padding: 10px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-
-            .greenicon {
-                position: absolute;
-                top: 5px;
-                right: 5px;
-                background: #00ff09;
-                padding: 10px;
-                box-sizing: border-box;
-                border-radius: 100%;
-            }
-        }
-
-
-        * {
-            font-family: Aileron-Regular, serif;
-            color: #ffffff;
-            /*font-size: 1.25rem;*/
-        }
-
-    </style>
 
 </head>
-<body class="d-flex flex-column h-100">
-<div id="body"></div>
-<main role="main" >
-    <div class="container py-2">
+<body class="d-flex flex-column h-100" style="background-color: #212121">
+<div id="body" class="test"></div>
+<main role="main" style="z-index: 1;">
+    <div class="container pt-2">
         <div class="d-flex justify-content-center" id="blocks" style="flex-wrap: wrap;"></div>
     </div>
 </main>
 
 <footer class="footer mt-auto py-3 " style="z-index: 0; text-align: center">
     <div class="container">
-        <span class="text" style="font-size: .75rem; color: #848484">HTL-Waidhofen - &copy; Maximilian Mernacher & Lukas Kamleitner - Mechatronik</span>
-        <img src="/images/HTL_Logo_SVG.svg" style="margin-left: 10px; width: 50px; filter: grayscale(100%);  ">
+        <span class="text footertext">HTL-Waidhofen - &copy; Maximilian Mernacher & Lukas Kamleitner - <a href="/docs">Dokumentation</a> - <span
+                class="mechatronik">Mechatronik</span><span id="ip"></span></span>
+        <!--        <img  src="/images/HTL_Logo_SVG.svg" style="margin-left: 10px; width: 50px; filter: grayscale(100%);  ">-->
     </div>
 </footer>
-
-<script src="" type="text/javascript"></script>
-<script src="" type="text/javascript"></script>
 </body>
 </html>

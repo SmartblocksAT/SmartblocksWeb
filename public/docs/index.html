@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Beispiele</title>
+
+    <link rel="stylesheet" href="lib/styles/a11y-dark.css">
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css">
+    <script src="lib/highlight.pack.js"></script>
+    <script src="lib/jquery.js"></script>
+    <script src="lib/bootstrap.bundle.min.js"></script>
+
+    <style>
+        pre code.hljs {
+            display: block;
+        }
+
+        code.hljs {
+            display: inline;
+        }
+
+        body {
+            background-color: #363636 !important;
+        }
+
+        p, div {
+            margin-bottom: 0 !important;
+            color: white !important;
+        }
+    </style>
+
+</head>
+<body>
+<div class="container">
+    <div class="py-2"></div>
+    <h1>3 Beispiele um den ESP32</h1>
+
+    <div class="py-1"></div>
+    <h2>Beispiel 1</h2>
+    <p>In den ersten beiden Zeilen <code class="arduino">#define LEDPIN 26</code> und <code class="arduino">#define
+        FREQUENCY 1000</code> werden die beiden Variablen LEDPIN und FREQUENCY erstellt.</p>
+    <p><code class="arduino">LEDPIN</code> beschreibt den Pin, an dem die LED verbunden ist und <code class="arduino">FREQUENCY</code>
+        die Wiederholrate in Millisekunden, wie oft die LED blinken soll.</p>
+    <div class="py-1"></div>
+    <p>In <code class="arduino">setup()</code> werden grundlegende Informationen festgelegt. In diesem Beispiel wird
+        mithilfe von <code class="arduino">pinMode</code> der Pin <code class="arduino">LEDPIN</code> auf <code
+                class="arduino">OUTPUT</code> gesetzt.</p>
+    <div class="py-1"></div>
+    <p><code class="arduino">Task()</code> wird im <code class="arduino">loop()</code> aufgerufen und verändert den
+        Ausgang <code class="arduino">LEDPIN</code> in sein Gegenteil.</p>
+    <p>Der <code class="arduino">loop()</code> stellt sicher, dass der <code class="arduino">Task()</code> mit der
+        Taktrate <code class="arduino">FREQUENCY</code> aufgerufen wird.</p>
+    <div class="py-3"></div>
+    <pre><code class="arduino" id="bsp1"></code></pre>
+
+    <div class="py-2"></div>
+
+    <h2>Beispiel 2</h2>
+    <p>Dieses Beispiel unterscheidet sich vom ersten Beispiel nur in drei Kleinigkeiten.</p>
+    <p>In <code class="arduino">Task()</code> wird anstatt des invertierten Wertes des Ausgangs der Eingang des Tasters
+        <code class="arduino">BUTTONPIN</code>, welcher oben definiert wurde, verwendet.</p>
+    <p>Ausserdem wurde die <code class="arduino">FREQUENCY</code> verringert, da dieser Wert nur mehr vorgibt, wie oft
+        der Eingang des Tasters abgefragt wird.</p>
+
+    <div class="py-3"></div>
+    <pre><code class="arduino" id="bsp2"></code></pre>
+
+    <div class="py-2"></div>
+
+    <h2>Beispiel 3</h2>
+    <p>In Beispiel 3 verwenden wir nun den HTTP-Client, welche ein grundlegender Bestandteil des ESP's ist.</p>
+    <p>Im <code class="arduino">setup()</code> werden wieder grundlegende Sachen definiert, wie zum Beispiel das
+        hinzufügen des Wlan-Netzwerkes.</p>
+    <p>Die Website, welche im <code class="arduino">loop()</code> mit <code class="arduino">http.begin("url");</code>
+        definiert wurde, wir per <code class="arduino">Serial.println();</code> im späteren Verlauf des Programmes
+        wieder asugegeben.</p>
+    <div class="py-3"></div>
+    <pre><code class="arduino" id="bsp3"></code></pre>
+
+    <div class="py-2"></div>
+
+    <h2>Beispiel 4</h2>
+    <p>Hier wird ein Webserver erstellt, der auf http://&lt;ip&gt;/ hört und Hello world zurückgibt, wenn diese Seite
+        aufgerufen wird.</p>
+    <!--        <p></p>-->
+    <div class="py-3"></div>
+    <pre><code class="arduino" id="bsp4"></code></pre>
+</div>
+<script>
+
+    function getC(url, id) {
+        $.ajax({url: url, async: false}).done((data) => {
+            document.getElementById(id).innerHTML = data;
+        });
+    }
+
+    getC("source/ESP32-Schneiber-Beispiel-1/ESP32-Schneiber-Beispiel-1.ino", "bsp1");
+    getC("source/ESP32-Schneiber-Beispiel-2/ESP32-Schneiber-Beispiel-2.ino", "bsp2");
+    getC("source/ESP32-Schneiber-Beispiel-3/ESP32-Schneiber-Beispiel-3.ino", "bsp3");
+    getC("source/ESP32-Schneiber-Beispiel-4/ESP32-Schneiber-Beispiel-4.ino", "bsp4");
+
+    document.querySelectorAll('code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });
+    document.querySelectorAll('pre code').forEach((block) => {
+        hljs.highlightBlock(block);
+    });
+</script>
+</body>
+</html>
