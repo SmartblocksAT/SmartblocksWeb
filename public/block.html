@@ -45,9 +45,7 @@
 <main role="main" style="z-index: 1">
     <div class="container pt-2">
         <div class="block">
-            <div class="block-title"><a href="/"
-                                        style="color: #FFFFFF; text-decoration: none;">Smartblock</a><span>:</span>
-                <span id="block-name">Loading...</span></div>
+            <div class="block-title"><a href="/" style="color: #FFFFFF; text-decoration: none;">Smartblock</a><span>: </span><span data-target="#changeName" data-toggle="modal" id="block-name">Loading...</span></div>
             <div style="display: inline;">
                 <hr class="block-status-line d-none d-md-block">
                 <hr class="block-status-line-small d-block d-md-none ">
@@ -57,7 +55,8 @@
                     </svg>
                 </button>
             </div>
-            <div id="block-uuid">Loading....</div>
+            <br>
+            <div id="block-mac">Loading....</div>
         </div>
     </div>
 </main>
@@ -103,9 +102,28 @@
             </div>
 
 
-            <select id="teest">
-                <label>Hi</label>
-            </select>
+        </div>
+
+
+    </div>
+</div>
+<div class="modal fade" id="changeName" role="dialog">
+    <div class="modal-dialog" style="max-width: 620px !important;">
+
+        <!-- Modal content-->
+        <div class="modal-content" style="background-color: #212121; border: 2px solid black">
+            <div class="modal-header">
+                <h4 class="modal-title">Namen ändern</h4>
+            </div>
+
+            <div class="modal-body">
+                <label for="newName">Name: </label> <input class="nameChangeInput" id="newName" onkeypress="if(event.keyCode === 13){event.preventDefault(); $('#newNameButton').click(); }" style="font-family: Arial">
+                <button class="nameChangeButton" data-dismiss="modal" id="newNameButton" onclick="_smartblocks.block.changeName();">Aendern</button>
+
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-default" data-dismiss="modal" style="color: #FFFFFF" type="button">Close</button>
+            </div>
 
         </div>
 

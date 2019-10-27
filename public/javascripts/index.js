@@ -1,7 +1,3 @@
-
-
-
-
 window._smartblocks = {
 
 
@@ -41,7 +37,7 @@ window._smartblocks = {
 
                 for (let blocktocheck in _smartblocks.lastdata) {
                     blocktocheck = _smartblocks.lastdata[blocktocheck];
-                    if (block.uuid === blocktocheck.uuid) {
+                    if (block.mac === blocktocheck.mac) {
                         contains = true;
                         break;
                     }
@@ -54,13 +50,13 @@ window._smartblocks = {
                     if (new Date(block.lastactive) < (new Date() - 5 * 1000)) {
 
 
-                        let b = document.querySelector("div[block-id='" + block.uuid + "'] div");
+                        let b = document.querySelector("div[block-id='" + block.mac + "'] div");
                         if (!(b === undefined || b === null)) {
                             b.setAttribute("class", "redicon status-icon")
                         }
                     } else {
 
-                        let b = document.querySelector("div[block-id='" + block.uuid + "'] div");
+                        let b = document.querySelector("div[block-id='" + block.mac + "'] div");
                         if (!(b === undefined || b === null)) {
                             b.setAttribute("class", "greenicon status-icon")
                         }
@@ -80,7 +76,7 @@ window._smartblocks = {
 
                 for (let block in data) {
                     block = data[block];
-                    if (block.uuid === blocktocheck.uuid) {
+                    if (block.mac === blocktocheck.mac) {
                         contains = true;
                         break;
                     }
@@ -99,22 +95,22 @@ window._smartblocks = {
 
                 for (let wave in  _smartblocks.waves) {
                     wave = _smartblocks.waves[wave];
-                    if (wave.id === block.uuid) {
+                    if (wave.id === block.mac) {
                         wave.wave.destroy();
                     }
                 }
-                // _smartblocks.genBlock(block.name ? block.name : "Unknown", block.uuid);
+                // _smartblocks.genBlock(block.name ? block.name : "Unknown", block.mac);
 
 
                 document.querySelectorAll("div[block-id]").forEach((value) => {
-                    if (value.getAttribute("block-id") === block.uuid) value.remove();
+                    if (value.getAttribute("block-id") === block.mac) value.remove();
                 })
             }
 
             for (let block in newblocks) {
                 block = newblocks[block];
 
-                let html = _smartblocks.genBlock(block.name ? block.name : "Unknown", block.uuid);
+                let html = _smartblocks.genBlock(block.name ? block.name : "Unknown", block.mac);
 
                 if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
                     try {
@@ -123,7 +119,7 @@ window._smartblocks = {
 
                                 _smartblocks.waves.push(
                                     {
-                                        id: block.uuid,
+                                        id: block.mac,
                                         wave: VANTA.WAVES({
                                             el: html, // element id or DOM object reference
                                             color: 0x121212,
@@ -139,7 +135,7 @@ window._smartblocks = {
                         } else {
                             _smartblocks.waves.push(
                                 {
-                                    id: block.uuid,
+                                    id: block.mac,
                                     wave: VANTA.WAVES({
                                         el: html, // element id or DOM object reference
                                         color: 0x121212,
@@ -156,7 +152,7 @@ window._smartblocks = {
 
                             _smartblocks.waves.push(
                                 {
-                                    id: block.uuid,
+                                    id: block.mac,
                                     wave: VANTA.WAVES({
                                         el: html, // element id or DOM object reference
                                         color: 0x121212,
@@ -193,6 +189,7 @@ window._smartblocks = {
         img.setAttribute("src", "/images/Block.svg");
 
         text.setAttribute("class", "text");
+        text.setAttribute("style", "font-size: 120% !important;");
 
         text.innerText = blockname;
 
@@ -230,9 +227,9 @@ window._smartblocks = {
 
 window.addEventListener("load", () => {
 
-
-    _smartblocks.loadBlocks();
-    setInterval(() => _smartblocks.loadBlocks(), 2500);
+    //
+    // _smartblocks.loadBlocks();
+    // setInterval(() => _smartblocks.loadBlocks(), 2500);
 
     if (location.pathname === "/") {
         _smartblocks.loadScript("/javascripts/libs/three.min.js")

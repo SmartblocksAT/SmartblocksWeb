@@ -28,10 +28,6 @@
     z-index: 0;
 }
 
-#block-uuid {
-    font-family: Monospace;
-}
-
 #block-name {
     /*font-family: "Comic Sans MS";*/
 }
@@ -73,7 +69,8 @@
     margin-top: -1.25rem;
 }
 
-
+/* IntelliJ thinks this does not exist. But the root of the document is somewhere else... /public */
+/*noinspection CssUnknownTarget*/
 html {
     background: no-repeat url("/images/background.png");
 }
@@ -123,8 +120,10 @@ html {
         display: inline-block;
     }
 
-    #block-uuid {
+    #block-mac {
         font-size: 0.75rem;
+        font-family: Monospace, monospace;
+        margin-top: -10px;
     }
 }
 
@@ -133,7 +132,17 @@ html {
         font-size: .75rem;
     }
 
-    #block-uuid {
+    #block-mac {
         font-size: 1rem;
+        font-family: Monospace, monospace;
+        margin-top: -10px;
     }
+}
+
+.nameChangeButton {
+    color: black;
+}
+
+.nameChangeInput {
+    color: black;
 }

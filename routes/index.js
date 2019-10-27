@@ -1,46 +1,17 @@
-var express = require('express');
-var router = express.Router();
-var mysql = require('promise-mysql');
-// var ipRangeCheck =  require('ip-range-check');
-var www = require('../options.js');
+let express = require('express');
+let router = express.Router();
+let mysql = require('promise-mysql');
+let options = require('../options.js');
 
-var mysqlConfig = {
+let mysqlConfig = {
     host: 'localhost',
-    user: www.smartblocks.config.MySQL_USER || 'smartblocks',
-    password: www.smartblocks.config.MySQL_PASS || ''
-};
-
-var cloudFlareData = {
-    ipv4: [
-        "173.245.48.0/20",
-        "103.21.244.0/22",
-        "103.22.200.0/22",
-        "103.31.4.0/22",
-        "141.101.64.0/18",
-        "108.162.192.0/18",
-        "190.93.240.0/20",
-        "188.114.96.0/20",
-        "197.234.240.0/22",
-        "198.41.128.0/17",
-        "162.158.0.0/15",
-        "104.16.0.0/12",
-        "172.64.0.0/13",
-        "131.0.72.0/22"
-    ],
-    ipv6: [
-        "2400:cb00::/32",
-        "2606:4700::/32",
-        "2803:f800::/32",
-        "2405:b500::/32",
-        "2405:8100::/32",
-        "2a06:98c0::/29",
-        "2c0f:f248::/32"
-    ]
+    user: options.smartblocks.config.MySQL_USER || 'smartblocks',
+    password: options.smartblocks.config.MySQL_PASS || ''
 };
 
 // Data from a http request, debugging purposes only -> CloudFlare
 router.get('/api/clientinfo', function (req, res) {
-    var data = {request: {}};
+    let data = {request: {}};
 
     data.request.baseUrl = req.baseUrl;
     data.request.cookies = req.cookies;
@@ -59,34 +30,39 @@ router.get('/api/clientinfo', function (req, res) {
 
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
 router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res) {
-    var data = [];
-    var connection;
+    let data = [];
+    let connection;
     // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
+
+    createSQL(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+    .then(function () {
 
         if (req.header("x-arduino-id") !== undefined) {
-            connection.query('UPDATE `smartblocks`.`blocks` SET `lastactive` = CURRENT_TIMESTAMP WHERE `blocks`.`uuid` = ?;', req.params.uuid);
+            console.log(req.header("x-arduino-id"));
+            connection.query('UPDATE `smartblocks`.`blocks` SET `lastactive` = CURRENT_TIMESTAMP WHERE mac = ?;', req.header("x-arduino-id"));
         }
+
     }).then(function () {
         return connection.query('SELECT * FROM `smartblocks`.`blocks`');
     }).then(function (d) {
 
 
-        for (var i in d) {
-            var idata = d[i];
+        for (let i in d) {
+            let idata = d[i];
 
-            var tmp = {
+            let tmp = {
                 id: 0,
-                uuid: null,
+                mac: null,
                 json: "",
                 lastactive: undefined,
             };
 
             tmp.id = idata.id;
-            tmp.uuid = idata.uuid;
+            tmp.mac = idata.mac;
             tmp.name = idata.name;
             tmp.lastactive = idata.lastactive;
             try {
@@ -103,35 +79,26 @@ router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, r
 });
 
 // Status endpoint for a specific smartblock
-router.get(['/api/status/:uuid/status.json', '/api/status/:uuid/'], function (req, res) {
-    var data = {};
-    var connection;
+router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req, res) {
+    let data = {};
+    let connection;
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
 
-    // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig)
-        .then(function (c) {
-            connection = c;
-            return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-        }).then(function () {
-
-        if (req.header("x-arduino-id") !== undefined) {
-            connection.query('UPDATE `smartblocks`.`blocks` SET `lastactive` = CURRENT_TIMESTAMP WHERE `blocks`.`uuid` = ?;', req.params.uuid);
-        }
-    }).then(function () {
-        return connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-    }).then(function (d) {
-
-
-        if (!(d.length > 0)) {
-            connection.query('INSERT INTO `smartblocks`.`blocks` (`id`, `uuid`, `name`, `json`) VALUES (NULL, ?, ?, \'{}\');', [req.params.uuid, "Unnamed" + Math.floor(Math.random() * 100)]);
-            d = connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-        }
-
-        for (var i in d) {
-            var idata = d[i];
+    }
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+    .then(function (d) {
+        for (let i in d) {
+            let idata = d[i];
 
 
             if (req.header("x-arduino-id") !== undefined) {
+                console.log(req.header("x-arduino-id"));
+                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
                 data["metadata"] = {
                     "id": req.header("X-Arduino-ID"),
                     "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
@@ -139,7 +106,7 @@ router.get(['/api/status/:uuid/status.json', '/api/status/:uuid/'], function (re
             }
 
             data["id"] = idata.id;
-            data["uuid"] = idata.uuid;
+            data["mac"] = idata.mac;
             data["name"] = idata.name;
             data["lastactive"] = idata.lastactive;
 
@@ -155,15 +122,21 @@ router.get(['/api/status/:uuid/status.json', '/api/status/:uuid/'], function (re
 });
 
 // Update endpoint used by the webinterface to update every variable with one request
-router.post('/api/update/:uuid/', function (req, res) {
-    var data = {};
-    var connection;
-    // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET `name` = ?, `json` = ? WHERE `blocks`.`uuid` = ?;', [req.body.name, JSON.stringify(req.body.json), req.params.uuid]);
+router.post('/api/update/:mac/', function (req, res) {
+    let data = {};
+    let connection;
+
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
+    }
+
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+        .then(function () {
+        return connection.query('UPDATE `smartblocks`.`blocks` SET `name` = ?, `json` = ? WHERE mac = ?;', [req.body.name, JSON.stringify(req.body.json), req.params.mac]);
     }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
@@ -172,17 +145,22 @@ router.post('/api/update/:uuid/', function (req, res) {
 });
 
 // Update endpoint to update the Name of a smartblock. Primarily used by the webinterface
-router.post('/api/update/:uuid/name', function (req, res) {
-    var data = {};
-    var connection;
-    // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
-        console.log("body:", req.body);
-        console.log("parans", req.params);
-        return connection.query('UPDATE `smartblocks`.`blocks` SET name = ? WHERE uuid = ?;', [req.body.name, req.params.uuid]);
+router.post('/api/update/:mac/name', function (req, res) {
+    let data = {};
+    let connection;
+
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
+    }
+
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+    .then(function () {
+
+        return connection.query('UPDATE `smartblocks`.`blocks` SET name = ? WHERE mac = ?;', [req.body.name, req.params.mac]);
     }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
@@ -191,32 +169,30 @@ router.post('/api/update/:uuid/name', function (req, res) {
 });
 
 // Update endpoint to update a specific key of a specific smartblock
-router.get('/api/update/:uuid/entry/:key/:value', function (req, res) {
-    var data = {};
-    var connection;
+router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
+    let data = {};
+    let connection;
 
-    // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
-        return connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-    }).then(function (d) {
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
+    }
 
-        if (!(d.length > 0)) {
-            connection.query('INSERT INTO `smartblocks`.`blocks` (`id`, `uuid`, `name`, `json`) VALUES (NULL, ?, ?, \'{}\');', [req.params.uuid, "UnnamedBlock" + Math.floor(Math.random() * 1000)]);
-            d = connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-        }
-
-        for (var i in d) {
-            var idata = d[i];
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+    .then(function (d) {
+        for (let i in d) {
+            let idata = d[i];
 
             data["id"] = idata.id;
-            data["uuid"] = idata.uuid;
+            data["mac"] = idata.mac;
             data["name"] = idata.name;
 
 
             if (req.header("x-arduino-id") !== undefined) {
+                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
                 data["metadata"] = {
                     "id": req.header("X-Arduino-ID"),
                     "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
@@ -233,9 +209,9 @@ router.get('/api/update/:uuid/entry/:key/:value', function (req, res) {
 
         data["json"][req.params.key] = req.params.value;
 
-    }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ?, lastactive = CURRENT_TIMESTAMP WHERE uuid = ?;', [JSON.stringify(data.json), req.params.uuid]);
-    }).then(function (d) {
+    })/*.then(function () {
+        return connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
+    })*/.then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
         // res.json(data);
@@ -244,28 +220,28 @@ router.get('/api/update/:uuid/entry/:key/:value', function (req, res) {
 });
 
 // Update endpoint to update a specific key of a specific smartblock
-router.post('/api/update/:uuid/entry/:key/', function (req, res) {
-    var data = {};
-    var connection;
+router.post('/api/update/:mac/entry/:key/', function (req, res) {
+    let data = {};
+    let connection;
+
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
+    }
 
     // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
-        return connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-    }).then(function (d) {
 
-        if (!(d.length > 0)) {
-            connection.query('INSERT INTO `smartblocks`.`blocks` (`id`, `uuid`, `name`, `json`) VALUES (NULL, ?, ?, \'{}\');', [req.params.uuid, "UnnamedBlock" + Math.floor(Math.random() * 1000)]);
-            d = connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-        }
-
-        for (var i in d) {
-            var idata = d[i];
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+    .then(function (d) {
+        for (let i in d) {
+            let idata = d[i];
 
 
             if (req.header("x-arduino-id") !== undefined) {
+                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
                 data["x-arduino-id"] = {
                     "id": req.header("X-Arduino-ID"),
                     "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
@@ -273,8 +249,9 @@ router.post('/api/update/:uuid/entry/:key/', function (req, res) {
             }
 
             data["id"] = idata.id;
-            data["uuid"] = idata.uuid;
+            data["mac"] = idata.mac;
             data["name"] = idata.name;
+
             try {
                 data["json"] = JSON.parse(idata.json);
             } catch (SyntacError) {
@@ -289,7 +266,7 @@ router.post('/api/update/:uuid/entry/:key/', function (req, res) {
 
 
     }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ?, lastactive = CURRENT_TIMESTAMP WHERE uuid = ?;', [JSON.stringify(data.json), req.params.uuid]);
+        return connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
     }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
@@ -298,48 +275,98 @@ router.post('/api/update/:uuid/entry/:key/', function (req, res) {
 });
 
 // Data for a specific key of a specific smartblock
-router.get('/api/get/:uuid/entry/:key/', function (req, res) {
-    var data = {};
-    var connection;
+router.get('/api/get/:mac/entry/:key/', function (req, res) {
+    let data = {};
+    let connection;
+
+    while(req.params.mac.indexOf(":") >= 1) {
+        req.params.mac = req.params.mac.replace(":", "-");
+    }
 
     // noinspection JSUnresolvedFunction
-    mysql.createConnection(mysqlConfig).then(function (c) {
-        connection = c;
-        return connection.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks`(`id` INT NOT NULL AUTO_INCREMENT, `uuid` VARCHAR(36) NOT NULL, `name` TEXT NOT NULL, `json` VARCHAR(255) NOT NULL, `lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY(`id`)) ENGINE = InnoDB;');
-    }).then(function () {
-        return connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-    }).then(function (d) {
-        if (!(d.length > 0)) {
-            connection.query('INSERT INTO `smartblocks`.`blocks` (`id`, `uuid`, `name`, `json`) VALUES (NULL, ?, ?, \'{}\');', [req.params.uuid, "UnnamedBlock" + Math.floor(Math.random() * 1000)]);
-            d = connection.query('SELECT * FROM `smartblocks`.`blocks` WHERE `uuid` = ?;', [req.params.uuid]);
-        }
-
-        for (var i in d) {
-            var idata = d[i];
+    createSQLandCheckBlock(mysqlConfig, req.params.mac)
+        .then(data => {
+            connection = data[0];
+            return data[1];
+        })
+        .then(function (d) {
+            for (let i in d) {
+                let idata = d[i];
 
 
-            if (req.header("x-arduino-id") !== undefined) {
-                data["x-arduino-id"] = {
-                    "id": req.header("X-Arduino-ID"),
-                    "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
-                };
+                if (req.header("x-arduino-id") !== undefined) {
+                    connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
+                    data["x-arduino-id"] = {
+                        "id": req.header("X-Arduino-ID"),
+                        "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
+                    };
+                }
+
+                data["id"] = idata.id;
+                data["mac"] = idata.mac;
+                data["name"] = idata.name;
+
+                try {
+                    data["json"] = JSON.parse(idata.json);
+                } catch (SyntacError) {
+                    data["json"] = idata.json;
+                }
             }
+        }).then(function () {
+            connection.end();
 
-            data["id"] = idata.id;
-            data["uuid"] = idata.uuid;
-            data["name"] = idata.name;
-            try {
-                data["json"] = JSON.parse(idata.json);
-            } catch (SyntacError) {
-                data["json"] = idata.json;
-            }
-        }
-    }).then(function () {
-        connection.end();
-        var tmp = data["json"][req.params.key];
-        if (!isNaN(Number(tmp))) tmp = Number(tmp);
-        res.json(tmp);
-    });
+            let tmp = data["json"][req.params.key];
+
+            if (!isNaN(Number(tmp))) tmp = Number(tmp);
+
+            res.json(tmp);
+        });
 });
 
 module.exports = router;
+
+
+
+function createSQLandCheckBlock(cfg, mac) {
+
+
+    let conn = null;
+
+    return new Promise((resolve, reject) => {
+
+         mysql.createConnection(cfg)
+            .then(c => {
+                 conn = c;
+                return conn.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks` (`id` int(11) NOT NULL AUTO_INCREMENT,`mac` varchar(17) NOT NULL,`name` text NOT NULL,`json` varchar(255) NOT NULL,`lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`));')
+            })
+            .then(() => {
+                return conn.query('SELECT * FROM `smartblocks`.`blocks` WHERE mac = ?;', [mac]);
+            })
+            .then(d => {
+
+                if (d === undefined || !(d.length > 0)) {
+                    conn.query('INSERT INTO `smartblocks`.`blocks` (`id`, `mac`, `name`, `json`) VALUES (NULL, ?, ?, ?);', [mac, "UnnamedBlock" + Math.floor(Math.random() * 1000), "{}"]);
+                    d = conn.query('SELECT * FROM `smartblocks`.`blocks` WHERE mac = ?;', [mac]);
+                }
+                resolve([conn, d]);
+            })
+             .catch(error => reject(error));
+    })
+}
+
+function createSQL(cfg) {
+
+
+    let conn = null;
+
+    return new Promise((resolve, reject) => {
+
+         mysql.createConnection(cfg)
+             .then(c => {
+                conn = c;
+                conn.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks` (`id` int(11) NOT NULL AUTO_INCREMENT,`mac` varchar(17) NOT NULL,`name` text NOT NULL,`json` varchar(255) NOT NULL,`lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`));');
+                resolve([conn])
+             })
+             .catch(error => reject(error));
+    })
+}

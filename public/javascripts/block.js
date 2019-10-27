@@ -2,13 +2,15 @@ window._smartblocks.block = {
     loadBlock: () => {
 
 
-        let uuid = getParameter("b");
+        let mac = getParameter("b");
 
-        $.get("/api/status/" + uuid, (data) => {
+        $.get("/api/status/" + mac, (data) => {
             if (data.constructor === "".constructor) data = JSON.parse(data);
 
             document.getElementById("block-name").innerText = data.name;
-            document.getElementById("block-uuid").innerText = data.uuid;
+
+
+            document.getElementById("block-mac").innerText = data.mac;
 
             logger.debug(data);
 
@@ -53,9 +55,6 @@ window._smartblocks.block = {
         for (let block in Object.entries(data)) {
             let option;
             let keys = block.json === undefined ? false : Object.keys(block.json);
-            let olblock = block;
-            // block = data[block];
-            logger.info(olblock, block);
 
             for (let i = 0; i < block.json.length; i++) {
                 option = document.createElement('option');
@@ -69,6 +68,16 @@ window._smartblocks.block = {
                 dropdown.add(option);
             }
         }
+    },
+
+    changeName: () => {
+
+        $.ajax({
+            method: "POST",
+            url: "/api/update/" + getParameter("b") + "/name",
+            data: {name: document.getElementById("newName").value}
+        })
+
     }
 
 
@@ -88,5 +97,8 @@ function getParameter(param) {
 
 
 window.addEventListener("load", () => {
-    setInterval(() => _smartblocks.block.loadBlock(), 1000);
+
+    if (location.pathname === "/block") {
+        setInterval(() => _smartblocks.block.loadBlock(), 1000);
+    }
 });
