@@ -10,7 +10,18 @@
 
     <title>Smartblocks</title>
 
-    <link href="stylesheets/block.css" rel="stylesheet">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88810632-6"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-88810632-6');
+    </script>
+
+
+    <link href="/stylesheets/block.css" rel="stylesheet">
 
     <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
@@ -33,6 +44,9 @@
     <script src="javascripts/index.js" type="text/javascript"></script>
     <script src="javascripts/block.js" type="text/javascript"></script>
 
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2/dist/Chart.min.js"></script>
+
     <link href="images/favicon.svg" rel="icon" type="image/svg+xml">
     <link href="images/favicon700x700.png" rel="icon" sizes="700x700" type="image/png">
     <link href="images/favicon32x32.png" rel="icon" sizes="32x32" type="image/png">
@@ -49,7 +63,7 @@
             <div style="display: inline;">
                 <hr class="block-status-line d-none d-md-block">
                 <hr class="block-status-line-small d-block d-md-none ">
-                <button class="d-none d-md-block" id="add-function" data-toggle="modal" data-target="#myModal">
+                <button class="d-block" data-target="#myModal" data-toggle="modal" id="add-function">
                     <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" viewBox="0 0 25 25">
                         <path fill="#FFFFFF" d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/>
                     </svg>
@@ -57,6 +71,8 @@
             </div>
             <br>
             <div id="block-mac">Loading....</div>
+            <div class="container pt-3 d-flex" id="moduleContent"  style="flex-wrap: wrap">
+            </div>
         </div>
     </div>
 </main>
@@ -65,7 +81,7 @@
     <div class="container">
         <!--        <button onclick="location.href = '/';" class="mechatronik" style="left: 20px;  background-color: rgba(0,0,0,0); color: #FFFFFF; border: 1px solid #212121; font-size: 2rem;">BACK</button>-->
         <span class="text footertext"><span>HTL-Waidhofen - &copy; Maximilian Mernacher & Lukas Kamleitner - </span><a
-                class="footertext" href="/docs">Dokumentation</a><span> - </span><span class="mechatronik footertext">Mechatronik</span><span
+                class="footertext" href="/docs">Documentation (DE)</a><span> - </span><span class="mechatronik footertext">Mechatronics</span><span
                 id="ip" class="footertext"></span></span>
         <!--        <img src="/images/HTL_Logo_SVG.svg" style="margin-left: 10px; width: 50px; filter: grayscale(100%);  ">-->
     </div>
@@ -78,33 +94,33 @@
         <div class="modal-content" style="background-color: #212121; border: 2px solid black">
             <div class="modal-header">
                 <!--                <button type="button" class="close" data-dismiss="modal">&times;</button>-->
-                <h4 class="modal-title">Box erstellen</h4>
+                <h4 class="modal-title">Create a box</h4>
             </div>
 
             <div class="modal-body">
                 <div class="container d-flex" style="flex-wrap: wrap">
-                    <button style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
-                        <img alt="Analog-IN" src="images/io/AnalogIN.png"
-                             style="width: 100px; height: 130px; filter: invert(100%);"></button>
-                    <button style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
-                        <img alt="Analog-OUT" src="images/io/AnalogOUT.png"
-                             style="width: 100px; height: 130px; filter: invert(100%);"></button>
-                    <button style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
-                        <img alt="Digital-IN" src="images/io/DigitalIN.png"
-                             style="width: 100px; height: 130px; filter: invert(100%);"></button>
-                    <button style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
-                        <img alt="Digital-Out" src="images/io/DigitalOUT.png"
-                             style="width: 100px; height: 130px; filter: invert(100%);"></button>
+                    <button onclick="_smartblocks.block.addDiagram()" style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
+<!--                        <img alt="Analog-IN" src="images/io/AnalogIN.png" style="width: 100px; height: 130px; filter: invert(100%);">-->
+                        Diagramm
+                    </button>
+                    <button onclick="_smartblocks.block.addState()" style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
+<!--                        <img alt="Digital-IN" src="images/io/DigitalIN.png" style="width: 100px; height: 130px; filter: invert(100%);"></button>-->
+                        Get state of a variable
+                    </button>
+                    <button onclick="_smartblocks.block.addDOUT()" style="background-color: rgba(0,0,0,0.2); border: 1px solid #4E4E4E; margin-left: 10px; margin-right: 10px;">
+<!--                        <img alt="Digital-Out" src="images/io/DigitalOUT.png" style="width: 100px; height: 130px; filter: invert(100%);"></button>-->
+                        Set variable
+                    </button>
+                </div>
+                <div class="py-2"></div>
+                <div class="container" id="addContent">
+
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color: #FFFFFF">Close</button>
             </div>
-
-
         </div>
-
-
     </div>
 </div>
 <div class="modal fade" id="changeName" role="dialog">
@@ -117,7 +133,7 @@
             </div>
 
             <div class="modal-body">
-                <label for="newName">Name: </label> <input class="nameChangeInput" id="newName" onkeypress="if(event.keyCode === 13){event.preventDefault(); $('#newNameButton').click(); }" style="font-family: Arial">
+                <label for="newName">Name: </label> <input class="nameChangeInput" id="newName"  onkeypress="if(event.keyCode === 13){event.preventDefault(); $('#newNameButton').click(); }" style="font-family: Arial">
                 <button class="nameChangeButton" data-dismiss="modal" id="newNameButton" onclick="_smartblocks.block.changeName();">Aendern</button>
 
             </div>

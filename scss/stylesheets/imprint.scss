@@ -1,0 +1,99 @@
+$white: #ffffff;
+$main_font: Azonix, serif;
+$monospace: Monospace, monospace;
+$almost_black: #111111;
+$greyish: #4B4B4B;
+$lightblack: #212121;
+$black: black;
+
+@-webkit-keyframes hue {
+  from {
+    -webkit-filter: hue-rotate(0deg);
+  }
+  to {
+    -webkit-filter: hue-rotate(-360deg);
+  }
+}
+
+.block {
+  z-index: 1;;
+
+  background-color: $almost_black;
+  border: solid $lightblack;
+  padding: 10px;
+
+  p{
+    font-family: $monospace !important
+  }
+}
+
+#body {
+  canvas {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: $almost_black;
+    z-index: 0;
+  }
+}
+
+.mechatronik {
+  background-image: -webkit-linear-gradient(92deg, #f35626, #feab3a);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-animation: hue 10s infinite linear;
+}
+
+
+button {
+  color: $white;
+  background-color: $black;
+}
+
+#moduleContent {
+  div {
+    canvas {
+      background: #111;
+      border: #535353 solid 1px;
+    }
+  }
+}
+
+@media (max-width: 992px) {
+  .block-title {
+    font-size: 1.5rem;
+    font-weight: bolder;
+  }
+  * {
+    font-family: $main_font;
+    color: $white;
+    font-size: 1rem;
+  }
+  .footertext {
+    font-size: 0.5rem;
+    display: inline-block;
+
+    * {
+      font-size: 0.5rem;
+      display: inline-block;
+    }
+  }
+}
+
+@media (min-width: 992px) {
+  .block-title {
+    font-size: 2rem;
+    font-weight: bolder;
+  }
+  * {
+    font-family: $main_font;
+    color: $white;
+  }
+  .footertext {
+    font-size: .75rem;
+
+    * {
+      font-size: .75rem;
+    }
+  }
+}

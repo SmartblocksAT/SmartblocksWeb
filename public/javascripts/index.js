@@ -173,6 +173,9 @@ window._smartblocks = {
             _smartblocks.lastdata = data;
 
         })
+            .then(() => {
+                document.getElementById("loading").remove();
+            });
     },
     genBlock: (blockname, blockid) => {
         let root = document.createElement("div");
@@ -264,6 +267,27 @@ window.addEventListener("load", () => {
     $.get("https://api.ipify.org/", (data) => {
         document.getElementById("ip").innerText = " - " + data;
         document.getElementById("ip").setAttribute("class", "text footertext")
-    })
+    });
+
+    let redirection = getParameter("r");
+    if(redirection !== undefined){
+        if(redirection === "R_OLD"){
+            document.getElementById("errtext").innerText = "You were on the old site! You have been automatically redirected!";
+            document.getElementById("errtext").removeAttribute("hidden");
+        }
+    }
 
 });
+
+
+function getParameter(param) {
+    let all = location.href.replace(location.origin + location.pathname + "?", "").split("&");
+    for (let part in all) {
+        part = all[part];
+
+        let splitted = part.split("=");
+
+        if (splitted[0] === param) return splitted[1];
+    }
+    return undefined;
+}

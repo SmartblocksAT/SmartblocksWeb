@@ -25,7 +25,7 @@ router.get('/api/clientinfo', function (req, res) {
     data.request.protocol = req.protocol;
     data.request.query = req.query;
 
-    res.end(JSON.stringify(data));
+    res.send(data);
 });
 
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
@@ -42,7 +42,6 @@ router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, r
     .then(function () {
 
         if (req.header("x-arduino-id") !== undefined) {
-            console.log(req.header("x-arduino-id"));
             connection.query('UPDATE `smartblocks`.`blocks` SET `lastactive` = CURRENT_TIMESTAMP WHERE mac = ?;', req.header("x-arduino-id"));
         }
 
@@ -53,24 +52,27 @@ router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, r
 
         for (let i in d) {
             let idata = d[i];
+            //
+            // let tmp = {
+            //     id: 0,
+            //     mac: null,
+            //     json: "",
+            //     lastactive: undefined,
+            // };
+            //
+            // tmp.id = idata.id;
+            // tmp.mac = idata.mac;
+            // tmp.name = idata.name;
+            // tmp.lastactive = idata.lastactive;
+            //
+            //
+            // if(idata.json.constructor === "".constructor){
+            //     tmp.json = JSON.parse(idata.json);
+            // } else {
+            //     tmp.json = idata.json;
+            // }
 
-            let tmp = {
-                id: 0,
-                mac: null,
-                json: "",
-                lastactive: undefined,
-            };
-
-            tmp.id = idata.id;
-            tmp.mac = idata.mac;
-            tmp.name = idata.name;
-            tmp.lastactive = idata.lastactive;
-            try {
-                tmp.json = JSON.parse(idata.json);
-            } catch (SyntacError) {
-                tmp.json = idata.json;
-            }
-            data.push(tmp);
+            data.push(idata);
 
         }
         connection.end();
@@ -93,11 +95,12 @@ router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req,
         })
     .then(function (d) {
         for (let i in d) {
-            let idata = d[i];
+            data = d[i];
 
+            // if(data.json === "") data.json = {};
+            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
 
             if (req.header("x-arduino-id") !== undefined) {
-                console.log(req.header("x-arduino-id"));
                 connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
                 data["metadata"] = {
                     "id": req.header("X-Arduino-ID"),
@@ -105,16 +108,7 @@ router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req,
                 };
             }
 
-            data["id"] = idata.id;
-            data["mac"] = idata.mac;
-            data["name"] = idata.name;
-            data["lastactive"] = idata.lastactive;
 
-            try {
-                data["json"] = JSON.parse(idata.json);
-            } catch (SyntacError) {
-                data["json"] = idata.json;
-            }
         }
         connection.end();
         res.json(data);
@@ -136,7 +130,7 @@ router.post('/api/update/:mac/', function (req, res) {
             return data[1];
         })
         .then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET `name` = ?, `json` = ? WHERE mac = ?;', [req.body.name, JSON.stringify(req.body.json), req.params.mac]);
+        return connection.query('UPDATE `smartblocks`.`blocks` SET `name` = ?, `json` = ? WHERE mac = ?;', [req.body.name, JSON.stringify(req.body), req.params.mac]);
     }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
@@ -184,12 +178,14 @@ router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
         })
     .then(function (d) {
         for (let i in d) {
-            let idata = d[i];
+            data = d[i];
+            //
+            // data["id"] = idata.id;
+            // data["mac"] = idata.mac;
+            // data["name"] = idata.name;
 
-            data["id"] = idata.id;
-            data["mac"] = idata.mac;
-            data["name"] = idata.name;
-
+            if(data.json === "") data.json = {};
+            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
 
             if (req.header("x-arduino-id") !== undefined) {
                 connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
@@ -199,23 +195,23 @@ router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
                 };
             }
 
+            // if(data.json === "") data.json = "{}";
+            //
+            // idata.json === undefined ? data["json"] = {} : data["json"] =  JSON.parse(idata.json);
 
-            try {
-                data["json"] = JSON.parse(idata.json);
-            } catch (SyntacError) {
-                data["json"] = idata.json;
-            }
         }
 
         data["json"][req.params.key] = req.params.value;
 
-    })/*.then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
-    })*/.then(function (d) {
+
+    }).then(function () {
+        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ? WHERE mac = ?;', [JSON.stringify(data.json), req.params.mac]);
+    }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
+
         // res.json(data);
-        res.send(req.params.value);
+        res.send(data[req.params.key]);
     });
 });
 
@@ -237,7 +233,7 @@ router.post('/api/update/:mac/entry/:key/', function (req, res) {
         })
     .then(function (d) {
         for (let i in d) {
-            let idata = d[i];
+            data = d[i];
 
 
             if (req.header("x-arduino-id") !== undefined) {
@@ -248,25 +244,18 @@ router.post('/api/update/:mac/entry/:key/', function (req, res) {
                 };
             }
 
-            data["id"] = idata.id;
-            data["mac"] = idata.mac;
-            data["name"] = idata.name;
 
-            try {
-                data["json"] = JSON.parse(idata.json);
-            } catch (SyntacError) {
-                data["json"] = idata.json;
-            }
+            if(data.json === "") data.json = {};
+            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
+
         }
 
-        console.log(req.body);
-        console.log(req.params);
 
-        data["json"][req.body.key] = JSON.parse(req.body.value);
+        data["json"][req.params.key] = req.body.value;
 
 
     }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
+        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ? WHERE mac = ?;', [JSON.stringify(data.json), req.params.mac]);
     }).then(function (d) {
         connection.end();
         data.affectedRows = d.affectedRows;
@@ -285,13 +274,13 @@ router.get('/api/get/:mac/entry/:key/', function (req, res) {
 
     // noinspection JSUnresolvedFunction
     createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
+        .then(dat => {
+            connection = dat[0];
+            return dat[1];
         })
         .then(function (d) {
             for (let i in d) {
-                let idata = d[i];
+                data = d[i];
 
 
                 if (req.header("x-arduino-id") !== undefined) {
@@ -302,26 +291,27 @@ router.get('/api/get/:mac/entry/:key/', function (req, res) {
                     };
                 }
 
-                data["id"] = idata.id;
-                data["mac"] = idata.mac;
-                data["name"] = idata.name;
 
-                try {
-                    data["json"] = JSON.parse(idata.json);
-                } catch (SyntacError) {
-                    data["json"] = idata.json;
-                }
+                if(data.json === "") data.json = {};
+                if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
+
             }
         }).then(function () {
             connection.end();
 
-            let tmp = data["json"][req.params.key];
+            let tmp = data.json;
+
+
+            tmp = tmp[req.params.key];
 
             if (!isNaN(Number(tmp))) tmp = Number(tmp);
+
+
 
             res.json(tmp);
         });
 });
+
 
 module.exports = router;
 
