@@ -61,7 +61,7 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your analog in"));
+        root.appendChild(genElement("h3", "","", "","Configure your diagram"));
         root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just a simple graph per time."));
 
         let label = genElement("label");
@@ -79,7 +79,7 @@ window._smartblocks.block = {
         root.appendChild(input);
 
 
-        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", (e) => {
+        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
 
             //<div style="max-width: 200px; max-height: 80px;"><canvas id="myChart" width="400" height="400"></canvas></div>
 
@@ -180,7 +180,7 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your digital in"));
+        root.appendChild(genElement("h3", "","", "","Configure your display"));
         root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just 1 or 0."));
 
 
@@ -188,24 +188,64 @@ window._smartblocks.block = {
         let label = genElement("label");
         label.setAttribute("for", "id");
 
-        label.innerText = "ID: ";
+        label.innerHTML = "ID:&#160;";
 
         root.appendChild(label);
+
+        let id = genRandom(5);
 
         let input = genElement("input", "" ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
         input.setAttribute("name", "id");
         input.setAttribute("placeholder", "Insert ID here");
 
-        let equasion = genElement("input", "" ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
-        equasion.setAttribute("name", "id");
+        label = genElement("label", "lb" + id, "", "", "");
+        label.setAttribute("for", "equasion");
+        label.setAttribute("hidden", "");
+
+        label.innerHTML = "Equasion:&#160;";
+
+
+        let labelcb = genElement("label");
+        labelcb.setAttribute("for", "ceckbox-advanced");
+
+        labelcb.innerHTML = "Display advanced feature: &#160;";
+
+        let checkbox = genElement("input", "cb" + id ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
+        checkbox.setAttribute("type", "checkbox");
+        checkbox.setAttribute("name", "ceckbox-advanced");
+
+
+        let equasion = genElement("input", "eq" + id  ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
+        equasion.setAttribute("name", "equasion");
+        equasion.setAttribute("hidden", "");
         equasion.value = "variable > 0";
+
+        checkbox.addEventListener("click", () => {
+            let label = document.getElementById("lb" + id);
+            let checkbox = document.getElementById("cb" + id);
+            let eq = document.getElementById("eq" + id);
+
+            if(checkbox.checked){
+                label.removeAttribute("hidden");
+                eq.removeAttribute("hidden");
+            } else {
+                label.setAttribute("hidden", "");
+                eq.setAttribute("hidden", " ");
+            }
+
+        });
 
         root.appendChild(input);
         root.appendChild(genElement("br"));
+
+        root.appendChild(labelcb);
+        root.appendChild(checkbox);
+        root.appendChild(genElement("br"));
+        root.appendChild(label);
         root.appendChild(equasion);
         root.appendChild(genElement("br"));
 
-        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", (e) => {
+        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
             let random = genRandom(5);
 
             let val = equasion.value;
@@ -216,11 +256,13 @@ window._smartblocks.block = {
                 return;
             }
             let lbody = "function (variable) { return " + (val === "" ? "false;" : val.endsWith(";") ? val : val + ";") + "}";
-            let lwrap = s => "{ return " + lbody + " };"; //return the block having function expression
+
+
+            let lwrap = ()  => "{ return " + lbody + " };"; //return the block having function expression
             let lequasion = new Function( lwrap(lbody) );
 
             let tmp = genElement("div","", "max-width: 400px; max-height: 200px; margin: auto; border: solid #535353 1px; background: black; padding: 5px 20px 5px 20px;", "" ,"");
-            tmp.appendChild(genElement("span", "digitalin_text" + random, "" , "" ,"State of " + input.value + ": "));
+            tmp.appendChild(genElement("div", "digitalin_text" + random, "" , "" ,input.value ));
             // tmp.appendChild(genElement("span", "digitalin" + random, "" , "" ,"N/A"));
 
             let icon = document.createElement("div");
@@ -248,7 +290,7 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your digital out"));
+        root.appendChild(genElement("h3", "","", "","Configure your set option"));
         root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just outputs 1 or 0."));
 
 
@@ -266,7 +308,7 @@ window._smartblocks.block = {
 
         root.appendChild(input);
 
-        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", (e) => {
+        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
             let random = genRandom(5);
 
 

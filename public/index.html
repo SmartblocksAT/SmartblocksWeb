@@ -2,94 +2,102 @@
 <!-- IntelliJ thinks the root of the document is in / but it is in /public... -->
 <!--suppress HtmlUnknownTarget -->
 <html class="h-100" lang="de">
-<head id="head">
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <meta content="This is the main site of the 'Smartblock' project. It displays every registered block and lets you access it's properties."
-          name="description">
-    <meta content="Maximilian Mernacher & Lukas Kamleitner" name="author">
+    <head id="head">
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+        <meta content="This is the main site of the 'Smartblock' project. It displays every registered block and lets you access it's properties."
+              name="description">
+        <meta content="Maximilian Mernacher & Lukas Kamleitner" name="author">
 
 
-    <title>Smartblocks</title>
+        <title>Smartblocks</title>
 
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88810632-6"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-88810632-6"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
 
-        gtag('config', 'UA-88810632-6');
-    </script>
+            function gtag() {
+                dataLayer.push(arguments);
+            }
 
+            gtag('js', new Date());
 
-    <link href="/stylesheets/index.css" rel="stylesheet">
-
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-    <link href="/assets/fonts.css" rel="stylesheet">
-
-    <script defer crossorigin="anonymous"
-            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-            src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script crossorigin="anonymous"
-            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-            src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+            gtag('config', 'UA-88810632-6');
+        </script>
 
 
-    <script src="/javascripts/libs/particles.min.js" type="text/javascript"></script>
+        <link href="/stylesheets/index.css" rel="stylesheet">
+
+        <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+
+        <link href="/assets/fonts.css" rel="stylesheet">
+
+        <script crossorigin="anonymous" defer
+                integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+                src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script crossorigin="anonymous"
+                integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+                src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script crossorigin="anonymous"
+                integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+                src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
 
-    <script src="/javascripts/logger.js" type="text/javascript"></script>
-    <script src="/javascripts/index.js" type="text/javascript"></script>
-
-    <link href="/images/favicon.svg" rel="icon" type="image/svg+xml">
-    <link href="/images/favicon700x700.png" rel="icon" sizes="700x700" type="image/png">
-    <link href="/images/favicon32x32.png" rel="icon" sizes="32x32" type="image/png">
-    <link href="/images/favicon16x16.png" rel="icon" sizes="16x16" type="image/png">
+        <script src="/javascripts/libs/particles.min.js" type="text/javascript"></script>
 
 
-</head>
-<body class="d-flex flex-column h-100" style="background-color: #212121">
-<div id="body" class="test"></div>
-<main role="main" style="z-index: 1;">
-    <div class="container pt-2">
-        <h4 hidden id="errtext"></h4>
-        <div class="d-flex justify-content-center" id="blocks" style="flex-wrap: wrap;"></div>
-        <div id="loading">
-            <svg class="lds-gears" height="100%" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100"
-                 width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                <g transform="translate(50 50)">
-                    <g transform="translate(-19 -19) scale(0.6)">
-                        <g>
-                            <animateTransform attributeName="transform" begin="0s" dur="1.6s" keyTimes="0;1"
-                                              repeatCount="indefinite" type="rotate" values="0;360"></animateTransform>
-                            <path d="M37.3496987939662 -7 L47.3496987939662 -7 L47.3496987939662 7 L37.3496987939662 7 A38 38 0 0 1 31.359972760794346 21.46047782418268 L31.359972760794346 21.46047782418268 L38.431040572659825 28.531545636048154 L28.531545636048154 38.431040572659825 L21.46047782418268 31.359972760794346 A38 38 0 0 1 7.0000000000000036 37.3496987939662 L7.0000000000000036 37.3496987939662 L7.000000000000004 47.3496987939662 L-6.999999999999999 47.3496987939662 L-7 37.3496987939662 A38 38 0 0 1 -21.460477824182675 31.35997276079435 L-21.460477824182675 31.35997276079435 L-28.53154563604815 38.431040572659825 L-38.43104057265982 28.531545636048158 L-31.359972760794346 21.460477824182682 A38 38 0 0 1 -37.3496987939662 7.000000000000007 L-37.3496987939662 7.000000000000007 L-47.3496987939662 7.000000000000008 L-47.3496987939662 -6.9999999999999964 L-37.3496987939662 -6.999999999999997 A38 38 0 0 1 -31.35997276079435 -21.460477824182675 L-31.35997276079435 -21.460477824182675 L-38.431040572659825 -28.531545636048147 L-28.53154563604818 -38.4310405726598 L-21.4604778241827 -31.35997276079433 A38 38 0 0 1 -6.999999999999992 -37.3496987939662 L-6.999999999999992 -37.3496987939662 L-6.999999999999994 -47.3496987939662 L6.999999999999977 -47.3496987939662 L6.999999999999979 -37.3496987939662 A38 38 0 0 1 21.460477824182686 -31.359972760794342 L21.460477824182686 -31.359972760794342 L28.531545636048158 -38.43104057265982 L38.4310405726598 -28.53154563604818 L31.35997276079433 -21.4604778241827 A38 38 0 0 1 37.3496987939662 -6.999999999999995 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
-                                  fill="#737373"></path>
+        <script src="/javascripts/logger.js" type="text/javascript"></script>
+        <script src="/javascripts/index.js" type="text/javascript"></script>
+
+        <link href="/images/favicon.svg" rel="icon" type="image/svg+xml">
+        <link href="/images/favicon700x700.png" rel="icon" sizes="700x700" type="image/png">
+        <link href="/images/favicon32x32.png" rel="icon" sizes="32x32" type="image/png">
+        <link href="/images/favicon16x16.png" rel="icon" sizes="16x16" type="image/png">
+
+
+    </head>
+    <body class="d-flex flex-column h-100" style="background-color: #212121">
+        <div class="test" id="body"></div>
+        <main role="main" style="z-index: 1;">
+            <div class="container pt-2">
+                <h4 hidden id="errtext"></h4>
+                <div class="d-flex justify-content-center" id="blocks" style="flex-wrap: wrap;"></div>
+                <div id="loading">
+                    <!--suppress XmlUnusedNamespaceDeclaration -->
+                    <svg class="lds-gears" height="100%" preserveAspectRatio="xMidYMid" viewBox="0 0 100 100"
+                         width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <g transform="translate(50 50)">
+                            <g transform="translate(-19 -19) scale(0.6)">
+                                <g>
+                                    <animateTransform attributeName="transform" begin="0s" dur="1.6s" keyTimes="0;1"
+                                                      repeatCount="indefinite" type="rotate"
+                                                      values="0;360"></animateTransform>
+                                    <path d="M37.3496987939662 -7 L47.3496987939662 -7 L47.3496987939662 7 L37.3496987939662 7 A38 38 0 0 1 31.359972760794346 21.46047782418268 L31.359972760794346 21.46047782418268 L38.431040572659825 28.531545636048154 L28.531545636048154 38.431040572659825 L21.46047782418268 31.359972760794346 A38 38 0 0 1 7.0000000000000036 37.3496987939662 L7.0000000000000036 37.3496987939662 L7.000000000000004 47.3496987939662 L-6.999999999999999 47.3496987939662 L-7 37.3496987939662 A38 38 0 0 1 -21.460477824182675 31.35997276079435 L-21.460477824182675 31.35997276079435 L-28.53154563604815 38.431040572659825 L-38.43104057265982 28.531545636048158 L-31.359972760794346 21.460477824182682 A38 38 0 0 1 -37.3496987939662 7.000000000000007 L-37.3496987939662 7.000000000000007 L-47.3496987939662 7.000000000000008 L-47.3496987939662 -6.9999999999999964 L-37.3496987939662 -6.999999999999997 A38 38 0 0 1 -31.35997276079435 -21.460477824182675 L-31.35997276079435 -21.460477824182675 L-38.431040572659825 -28.531545636048147 L-28.53154563604818 -38.4310405726598 L-21.4604778241827 -31.35997276079433 A38 38 0 0 1 -6.999999999999992 -37.3496987939662 L-6.999999999999992 -37.3496987939662 L-6.999999999999994 -47.3496987939662 L6.999999999999977 -47.3496987939662 L6.999999999999979 -37.3496987939662 A38 38 0 0 1 21.460477824182686 -31.359972760794342 L21.460477824182686 -31.359972760794342 L28.531545636048158 -38.43104057265982 L38.4310405726598 -28.53154563604818 L31.35997276079433 -21.4604778241827 A38 38 0 0 1 37.3496987939662 -6.999999999999995 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
+                                          fill="#737373"></path>
+                                </g>
+                            </g>
+                            <g transform="translate(19 19) scale(0.6)">
+                                <g>
+                                    <animateTransform attributeName="transform" begin="-0.1s" dur="1.6s" keyTimes="0;1"
+                                                      repeatCount="indefinite" type="rotate"
+                                                      values="360;0"></animateTransform>
+                                    <path d="M37.3496987939662 -7 L47.3496987939662 -7 L47.3496987939662 7 L37.3496987939662 7 A38 38 0 0 1 31.359972760794346 21.46047782418268 L31.359972760794346 21.46047782418268 L38.431040572659825 28.531545636048154 L28.531545636048154 38.431040572659825 L21.46047782418268 31.359972760794346 A38 38 0 0 1 7.0000000000000036 37.3496987939662 L7.0000000000000036 37.3496987939662 L7.000000000000004 47.3496987939662 L-6.999999999999999 47.3496987939662 L-7 37.3496987939662 A38 38 0 0 1 -21.460477824182675 31.35997276079435 L-21.460477824182675 31.35997276079435 L-28.53154563604815 38.431040572659825 L-38.43104057265982 28.531545636048158 L-31.359972760794346 21.460477824182682 A38 38 0 0 1 -37.3496987939662 7.000000000000007 L-37.3496987939662 7.000000000000007 L-47.3496987939662 7.000000000000008 L-47.3496987939662 -6.9999999999999964 L-37.3496987939662 -6.999999999999997 A38 38 0 0 1 -31.35997276079435 -21.460477824182675 L-31.35997276079435 -21.460477824182675 L-38.431040572659825 -28.531545636048147 L-28.53154563604818 -38.4310405726598 L-21.4604778241827 -31.35997276079433 A38 38 0 0 1 -6.999999999999992 -37.3496987939662 L-6.999999999999992 -37.3496987939662 L-6.999999999999994 -47.3496987939662 L6.999999999999977 -47.3496987939662 L6.999999999999979 -37.3496987939662 A38 38 0 0 1 21.460477824182686 -31.359972760794342 L21.460477824182686 -31.359972760794342 L28.531545636048158 -38.43104057265982 L38.4310405726598 -28.53154563604818 L31.35997276079433 -21.4604778241827 A38 38 0 0 1 37.3496987939662 -6.999999999999995 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
+                                          fill="#efefef"></path>
+                                </g>
+                            </g>
                         </g>
-                    </g>
-                    <g transform="translate(19 19) scale(0.6)">
-                        <g>
-                            <animateTransform attributeName="transform" begin="-0.1s" dur="1.6s" keyTimes="0;1"
-                                              repeatCount="indefinite" type="rotate" values="360;0"></animateTransform>
-                            <path d="M37.3496987939662 -7 L47.3496987939662 -7 L47.3496987939662 7 L37.3496987939662 7 A38 38 0 0 1 31.359972760794346 21.46047782418268 L31.359972760794346 21.46047782418268 L38.431040572659825 28.531545636048154 L28.531545636048154 38.431040572659825 L21.46047782418268 31.359972760794346 A38 38 0 0 1 7.0000000000000036 37.3496987939662 L7.0000000000000036 37.3496987939662 L7.000000000000004 47.3496987939662 L-6.999999999999999 47.3496987939662 L-7 37.3496987939662 A38 38 0 0 1 -21.460477824182675 31.35997276079435 L-21.460477824182675 31.35997276079435 L-28.53154563604815 38.431040572659825 L-38.43104057265982 28.531545636048158 L-31.359972760794346 21.460477824182682 A38 38 0 0 1 -37.3496987939662 7.000000000000007 L-37.3496987939662 7.000000000000007 L-47.3496987939662 7.000000000000008 L-47.3496987939662 -6.9999999999999964 L-37.3496987939662 -6.999999999999997 A38 38 0 0 1 -31.35997276079435 -21.460477824182675 L-31.35997276079435 -21.460477824182675 L-38.431040572659825 -28.531545636048147 L-28.53154563604818 -38.4310405726598 L-21.4604778241827 -31.35997276079433 A38 38 0 0 1 -6.999999999999992 -37.3496987939662 L-6.999999999999992 -37.3496987939662 L-6.999999999999994 -47.3496987939662 L6.999999999999977 -47.3496987939662 L6.999999999999979 -37.3496987939662 A38 38 0 0 1 21.460477824182686 -31.359972760794342 L21.460477824182686 -31.359972760794342 L28.531545636048158 -38.43104057265982 L38.4310405726598 -28.53154563604818 L31.35997276079433 -21.4604778241827 A38 38 0 0 1 37.3496987939662 -6.999999999999995 M0 -23A23 23 0 1 0 0 23 A23 23 0 1 0 0 -23"
-                                  fill="#efefef"></path>
-                        </g>
-                    </g>
-                </g>
-            </svg>
-        </div>
-    </div>
-</main>
+                    </svg>
+                </div>
+            </div>
+        </main>
 
-<footer class="footer mt-auto py-3 " style="z-index: 0; text-align: center">
-    <div class="container">
-        <span class="text footertext">HTL-Waidhofen - &copy; Maximilian Mernacher & Lukas Kamleitner - <a href="/docs">Documentation (DE)</a> - <span
-                class="mechatronik">Mechatronics</span><span id="ip"></span> - <a href="/imprint">Imprint</a></span>
-    </div>
-</footer>
-</body>
+        <footer class="footer mt-auto py-3 " style="z-index: 0; text-align: center">
+            <div class="container">
+                <span class="text footertext">HTL-Waidhofen - &copy; Maximilian Mernacher & Lukas Kamleitner - <a href="/docs">Documentation (DE)</a> - <span class="mechatronik">Mechatronics</span> - <a href="/imprint">Imprint</a></span>
+                <span id="ip"></span>
+            </div>
+        </footer>
+    </body>
 </html>

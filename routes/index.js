@@ -1,362 +1,133 @@
 let express = require('express');
 let router = express.Router();
-let mysql = require('promise-mysql');
-let options = require('../options.js');
 
-let mysqlConfig = {
-    host: 'localhost',
-    user: options.smartblocks.config.MySQL_USER || 'smartblocks',
-    password: options.smartblocks.config.MySQL_PASS || ''
-};
+let db = require("../data/db");
 
 // Data from a http request, debugging purposes only -> CloudFlare
 router.get('/api/clientinfo', function (req, res) {
-    let data = {request: {}};
+    let data = {};
 
-    data.request.baseUrl = req.baseUrl;
-    data.request.cookies = req.cookies;
-    data.request.headers = req.headers;
-    data.request.hostname = req.header('x-forwarded-host');
-    data.request.ip = req.header('cf-connecting-ip');
-    data.request.method = req.method;
-    data.request.originalUrl = req.originalUrl;
-    data.request.params = req.params;
-    data.request.path = req.path;
-    data.request.protocol = req.protocol;
-    data.request.query = req.query;
+    data.country = req.header('cf-ipcountry');
+    data.ip = req.header('cf-connecting-ip');
+    data.cfray = req.header('cf-ray');
+    data.forwarded = req.header('x-forwarded-for');
 
     res.send(data);
 });
 
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
 router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res) {
-    let data = [];
-    let connection;
-    // noinspection JSUnresolvedFunction
 
-    createSQL(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+
+    db.all()
+        .then(dat => {
+            res.json(dat);
         })
-    .then(function () {
-
-        if (req.header("x-arduino-id") !== undefined) {
-            connection.query('UPDATE `smartblocks`.`blocks` SET `lastactive` = CURRENT_TIMESTAMP WHERE mac = ?;', req.header("x-arduino-id"));
-        }
-
-    }).then(function () {
-        return connection.query('SELECT * FROM `smartblocks`.`blocks`');
-    }).then(function (d) {
-
-
-        for (let i in d) {
-            let idata = d[i];
-            //
-            // let tmp = {
-            //     id: 0,
-            //     mac: null,
-            //     json: "",
-            //     lastactive: undefined,
-            // };
-            //
-            // tmp.id = idata.id;
-            // tmp.mac = idata.mac;
-            // tmp.name = idata.name;
-            // tmp.lastactive = idata.lastactive;
-            //
-            //
-            // if(idata.json.constructor === "".constructor){
-            //     tmp.json = JSON.parse(idata.json);
-            // } else {
-            //     tmp.json = idata.json;
-            // }
-
-            data.push(idata);
-
-        }
-        connection.end();
-        res.json(data);
-    });
+        .catch(err => console.log("ERR => "+ err));
 });
 
 // Status endpoint for a specific smartblock
 router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req, res) {
-    let data = {};
-    let connection;
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
 
     }
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
-        })
-    .then(function (d) {
-        for (let i in d) {
-            data = d[i];
 
-            // if(data.json === "") data.json = {};
-            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
+    let mac = req.params.mac;
 
-            if (req.header("x-arduino-id") !== undefined) {
-                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
-                data["metadata"] = {
-                    "id": req.header("X-Arduino-ID"),
-                    "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
-                };
-            }
-
-
-        }
-        connection.end();
-        res.json(data);
-    });
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    db.get(mac)
+        .then(dat => res.json(dat))
+        .catch(err => console.log("ERR => "+ err));
 });
 
 // Update endpoint used by the webinterface to update every variable with one request
 router.post('/api/update/:mac/', function (req, res) {
-    let data = {};
-    let connection;
 
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
+
+    let mac = req.params.mac;
+
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    let data = JSON.stringify(req.body);
+    let name = req.body.name;
+
+    db.updateAll(mac, data, name)
+        .then(dat => {
+            res.json(dat);
         })
-        .then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET `name` = ?, `json` = ? WHERE mac = ?;', [req.body.name, JSON.stringify(req.body), req.params.mac]);
-    }).then(function (d) {
-        connection.end();
-        data.affectedRows = d.affectedRows;
-        res.json(data);
-    });
+        .catch(err => console.log("ERR => "+ err));
 });
 
 // Update endpoint to update the Name of a smartblock. Primarily used by the webinterface
 router.post('/api/update/:mac/name', function (req, res) {
-    let data = {};
-    let connection;
-
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
-        })
-    .then(function () {
 
-        return connection.query('UPDATE `smartblocks`.`blocks` SET name = ? WHERE mac = ?;', [req.body.name, req.params.mac]);
-    }).then(function (d) {
-        connection.end();
-        data.affectedRows = d.affectedRows;
-        res.json(data);
-    });
+    let mac = req.params.mac;
+
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    let name = req.body.name;
+
+    db.updateName(mac, name)
+        .then(dat => {
+            res.json(dat);
+        })
+        .catch(err => console.log("ERR => "+ err));
 });
 
 // Update endpoint to update a specific key of a specific smartblock
 router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
-    let data = {};
-    let connection;
 
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+
+    db.updateSingle(req.params.mac, req.params.key, req.params.value)
+        .then(dat => {
+            res.json(dat);
         })
-    .then(function (d) {
-        for (let i in d) {
-            data = d[i];
-            //
-            // data["id"] = idata.id;
-            // data["mac"] = idata.mac;
-            // data["name"] = idata.name;
-
-            if(data.json === "") data.json = {};
-            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
-
-            if (req.header("x-arduino-id") !== undefined) {
-                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
-                data["metadata"] = {
-                    "id": req.header("X-Arduino-ID"),
-                    "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
-                };
-            }
-
-            // if(data.json === "") data.json = "{}";
-            //
-            // idata.json === undefined ? data["json"] = {} : data["json"] =  JSON.parse(idata.json);
-
-        }
-
-        data["json"][req.params.key] = req.params.value;
-
-
-    }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ? WHERE mac = ?;', [JSON.stringify(data.json), req.params.mac]);
-    }).then(function (d) {
-        connection.end();
-        data.affectedRows = d.affectedRows;
-
-        // res.json(data);
-        res.send(data[req.params.key]);
-    });
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 // Update endpoint to update a specific key of a specific smartblock
 router.post('/api/update/:mac/entry/:key/', function (req, res) {
-    let data = {};
-    let connection;
-
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    // noinspection JSUnresolvedFunction
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
 
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(data => {
-            connection = data[0];
-            return data[1];
+    db.updateSingle(req.params.mac, req.params.key, req.body.value)
+        .then(dat => {
+            res.json(dat);
         })
-    .then(function (d) {
-        for (let i in d) {
-            data = d[i];
-
-
-            if (req.header("x-arduino-id") !== undefined) {
-                connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
-                data["x-arduino-id"] = {
-                    "id": req.header("X-Arduino-ID"),
-                    "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
-                };
-            }
-
-
-            if(data.json === "") data.json = {};
-            if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
-
-        }
-
-
-        data["json"][req.params.key] = req.body.value;
-
-
-    }).then(function () {
-        return connection.query('UPDATE `smartblocks`.`blocks` SET json = ? WHERE mac = ?;', [JSON.stringify(data.json), req.params.mac]);
-    }).then(function (d) {
-        connection.end();
-        data.affectedRows = d.affectedRows;
-        res.json(data);
-    });
+        .catch(err => {
+            res.json(err);
+        });
 });
 
 // Data for a specific key of a specific smartblock
 router.get('/api/get/:mac/entry/:key/', function (req, res) {
-    let data = {};
-    let connection;
-
-    while(req.params.mac.indexOf(":") >= 1) {
+    while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    // noinspection JSUnresolvedFunction
-    createSQLandCheckBlock(mysqlConfig, req.params.mac)
-        .then(dat => {
-            connection = dat[0];
-            return dat[1];
-        })
-        .then(function (d) {
-            for (let i in d) {
-                data = d[i];
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
 
-
-                if (req.header("x-arduino-id") !== undefined) {
-                    connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);
-                    data["x-arduino-id"] = {
-                        "id": req.header("X-Arduino-ID"),
-                        "lastActive": new Date().toLocaleString("de-DE", {timeZone: "Europe/Vienna"}),
-                    };
-                }
-
-
-                if(data.json === "") data.json = {};
-                if(data.json.constructor === "".constructor) data.json = JSON.parse(data.json);
-
-            }
-        }).then(function () {
-            connection.end();
-
-            let tmp = data.json;
-
-
-            tmp = tmp[req.params.key];
-
-            if (!isNaN(Number(tmp))) tmp = Number(tmp);
-
-
-
-            res.json(tmp);
-        });
+    db.getSingle(req.params.mac, req.params.key)
+        .then(dat => res.send(dat));
 });
 
 
 module.exports = router;
-
-
-
-function createSQLandCheckBlock(cfg, mac) {
-
-
-    let conn = null;
-
-    return new Promise((resolve, reject) => {
-
-         mysql.createConnection(cfg)
-            .then(c => {
-                 conn = c;
-                return conn.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks` (`id` int(11) NOT NULL AUTO_INCREMENT,`mac` varchar(17) NOT NULL,`name` text NOT NULL,`json` varchar(255) NOT NULL,`lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`));')
-            })
-            .then(() => {
-                return conn.query('SELECT * FROM `smartblocks`.`blocks` WHERE mac = ?;', [mac]);
-            })
-            .then(d => {
-
-                if (d === undefined || !(d.length > 0)) {
-                    conn.query('INSERT INTO `smartblocks`.`blocks` (`id`, `mac`, `name`, `json`) VALUES (NULL, ?, ?, ?);', [mac, "UnnamedBlock" + Math.floor(Math.random() * 1000), "{}"]);
-                    d = conn.query('SELECT * FROM `smartblocks`.`blocks` WHERE mac = ?;', [mac]);
-                }
-                resolve([conn, d]);
-            })
-             .catch(error => reject(error));
-    })
-}
-
-function createSQL(cfg) {
-
-
-    let conn = null;
-
-    return new Promise((resolve, reject) => {
-
-         mysql.createConnection(cfg)
-             .then(c => {
-                conn = c;
-                conn.query('CREATE TABLE IF NOT EXISTS `smartblocks`.`blocks` (`id` int(11) NOT NULL AUTO_INCREMENT,`mac` varchar(17) NOT NULL,`name` text NOT NULL,`json` varchar(255) NOT NULL,`lastactive` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, PRIMARY KEY (`id`));');
-                resolve([conn])
-             })
-             .catch(error => reject(error));
-    })
-}

@@ -18,8 +18,6 @@ window.logger = {
     },
 
     info: function (msg) {
-        console.log(logger.info.caller);
-
         if (typeof msg === "object") {
             console.log(msg);
         } else {

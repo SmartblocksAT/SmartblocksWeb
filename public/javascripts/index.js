@@ -3,9 +3,10 @@ window._smartblocks = {
 
     waves: [],
     lastdata: [],
-    debug: true,
+    debug: false,
 
     loadScript: (url) => {
+        logger.debug("Trying to load a script from " + url);
         return new Promise((resolve) => {
 
             let script = document.createElement("script");
@@ -19,6 +20,7 @@ window._smartblocks = {
     },
     loadBlocks: () => {
 
+        logger.debug("Trying to load blocks!");
 
         $.get("/api/status/all/", (data) => {
 
@@ -29,6 +31,7 @@ window._smartblocks = {
             let delblocks = [];
 
 
+            logger.debug("Trying to figure out if any blocks were added or removed from the database.");
             for (let block in data) {
                 block = data[block];
 
@@ -43,27 +46,26 @@ window._smartblocks = {
                     }
                 }
                 if (contains) {
-
-                    // console.log(block);
-
-
                     if (new Date(block.lastactive) < (new Date() - 5 * 1000)) {
 
 
                         let b = document.querySelector("div[block-id='" + block.mac + "'] div");
                         if (!(b === undefined || b === null)) {
-                            b.setAttribute("class", "redicon status-icon")
+                            b.setAttribute("class", "redicon status-icon");
+                            logger.debug("Block " + block.mac + " probably went offline...");
                         }
                     } else {
 
                         let b = document.querySelector("div[block-id='" + block.mac + "'] div");
                         if (!(b === undefined || b === null)) {
-                            b.setAttribute("class", "greenicon status-icon")
+                            b.setAttribute("class", "greenicon status-icon");
+                            logger.debug("Block " + block.mac + " went online...");
                         }
                     }
 
 
                 } else {
+                    logger.debug("New block " + block.mac + " detected! Adding it to the list.");
                     newblocks.push(block);
                 }
 
@@ -85,6 +87,7 @@ window._smartblocks = {
                 if (contains) {
 
                 } else {
+                    logger.debug("Deleted block " + block.mac + " detected! Removing it from the list.");
                     delblocks.push(blocktocheck);
                 }
 
@@ -97,9 +100,10 @@ window._smartblocks = {
                     wave = _smartblocks.waves[wave];
                     if (wave.id === block.mac) {
                         wave.wave.destroy();
+
+                        logger.debug("Destroy vanta from block " + block.mac);
                     }
                 }
-                // _smartblocks.genBlock(block.name ? block.name : "Unknown", block.mac);
 
 
                 document.querySelectorAll("div[block-id]").forEach((value) => {
@@ -113,6 +117,7 @@ window._smartblocks = {
                 let html = _smartblocks.genBlock(block.name ? block.name : "Unknown", block.mac);
 
                 if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+                    logger.debug("Adding the Vantawaves to block entries.");
                     try {
                         if (VANTA === undefined) {
                             setTimeout(() => {
@@ -173,11 +178,9 @@ window._smartblocks = {
             _smartblocks.lastdata = data;
 
         })
-            .then(() => {
-                document.getElementById("loading").remove();
-            });
     },
     genBlock: (blockname, blockid) => {
+        logger.debug("Generating a block for " + blockname + " [" + blockid + "]");
         let root = document.createElement("div");
         let icon = document.createElement("div");
         let img = document.createElement("img");
@@ -190,6 +193,7 @@ window._smartblocks = {
         icon.setAttribute("class", "unknownicon status-icon");
 
         img.setAttribute("src", "/images/Block.svg");
+        img.setAttribute("alt", "Block");
 
         text.setAttribute("class", "text");
         text.setAttribute("style", "font-size: 120% !important;");
@@ -234,7 +238,10 @@ window.addEventListener("load", () => {
     // _smartblocks.loadBlocks();
     // setInterval(() => _smartblocks.loadBlocks(), 2500);
 
+    logger.info("Page loaded! Adding content...");
+
     if (location.pathname === "/") {
+        document.getElementById("loading").remove();
         _smartblocks.loadScript("/javascripts/libs/three.min.js")
             .then(() => {
                 _smartblocks.loadScript("/javascripts/libs/vanta.waves.min.js")
@@ -264,8 +271,10 @@ window.addEventListener("load", () => {
     if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) particlesJS.load('body', 'assets/particles-mobile.json');
     else particlesJS.load('body', 'assets/particles-desktop.json');
 
-    $.get("https://api.ipify.org/", (data) => {
-        document.getElementById("ip").innerText = " - " + data;
+    $.get("/api/clientinfo", (data) => {
+        logger.info("Got some info about the client.");
+        logger.debug(data);
+        document.getElementById("ip").innerHTML = "<img alt='" + data.country + "' src='https://www.countryflags.io/" + data.country + "/flat/32.png'> " + data.ip;
         document.getElementById("ip").setAttribute("class", "text footertext")
     });
 
