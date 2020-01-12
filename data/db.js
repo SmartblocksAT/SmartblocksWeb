@@ -33,8 +33,11 @@ module.exports.init = () => {
  */
 module.exports.activity = (mac = undefined) => {
 
+    if(mac.indexOf(":") >= 0) mac = mac.replace(/:/g, "-");
+
     return new Promise((resolve, reject) => {
         if (mac === undefined) reject("esp_mac undefined!");
+        if (typeof mac !== "string") mac = String(mac);
 
         pool.query('UPDATE blocks SET `lastactive` = CURRENT_TIMESTAMP WHERE mac = ?;', mac, function (err) {
             if (err) reject(err);

@@ -29,7 +29,7 @@ app.use(compression());
 // app.use(logger('":method :url HTTP/:http-version" :status ":user-agent" :req[X-Forwarded-For]'));
 app.use( process.env.NODE_ENV === "development" ? logger('dev') : logger('":method :url HTTP/:http-version" :status ":user-agent" :req[X-Forwarded-For]'));
 app.use(function(req,res,next){
-    res.header('X-Pirate' , "Ahoy!");
+    res.header('X-Pirate' , "Arrr!");
     res.header('X-Powered-By' , "Monkeys with lots of coffee and express");
     next();
 });

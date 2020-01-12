@@ -18,7 +18,7 @@ router.get('/api/clientinfo', function (req, res) {
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
 router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res) {
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.all()
         .then(dat => {
@@ -36,7 +36,7 @@ router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req,
 
     let mac = req.params.mac;
 
-    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
     db.get(mac)
         .then(dat => res.json(dat))
         .catch(err => console.log("ERR => "+ err));
@@ -52,7 +52,7 @@ router.post('/api/update/:mac/', function (req, res) {
 
     let mac = req.params.mac;
 
-    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
     let data = JSON.stringify(req.body);
     let name = req.body.name;
 
@@ -72,7 +72,7 @@ router.post('/api/update/:mac/name', function (req, res) {
 
     let mac = req.params.mac;
 
-    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
     let name = req.body.name;
 
     db.updateName(mac, name)
@@ -89,7 +89,7 @@ router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.updateSingle(req.params.mac, req.params.key, req.params.value)
         .then(dat => {
@@ -106,7 +106,7 @@ router.post('/api/update/:mac/entry/:key/', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.updateSingle(req.params.mac, req.params.key, req.body.value)
         .then(dat => {
@@ -123,7 +123,7 @@ router.get('/api/get/:mac/entry/:key/', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id"));
+    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.getSingle(req.params.mac, req.params.key)
         .then(dat => res.send(dat));

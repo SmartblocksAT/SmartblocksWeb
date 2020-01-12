@@ -1,7 +1,7 @@
 $white: #ffffff;
 $main_font: Azonix, serif;
 $monospace: Monospace, monospace;
-$almost_black: #111111;
+$body_back: #11111100;
 $greyish: #4B4B4B;
 $black: black;
 
@@ -23,7 +23,6 @@ $black: black;
     position: fixed;
     width: 100%;
     height: 100%;
-    background-color: $almost_black;
     z-index: 0;
   }
 }
@@ -32,19 +31,29 @@ $black: black;
   margin-top: .25rem;
   margin-bottom: .25rem;
   float: left;
-  width: 90%;
   border-top: 1px solid rgba(125, 125, 125, .75);
   transition: ease-in-out 1s;
-}
 
-.block-status-line-small {
-  margin-top: .25rem;
-  margin-bottom: .25rem;
-  width: 100%;
-  border-top: 1px solid rgba(125, 125, 125, .75);
-  transition: ease-in-out 1s;
-}
+  @media (max-width: 576px) {
+    width: 75%;
+  }
 
+  @media (min-width: 576px ){
+    width: 430px;
+  }
+
+  @media (min-width: 768px) {
+    width: 610px;
+  }
+
+  @media (min-width: 992px) {
+    width: 820px;
+  }
+
+  @media (min-width: 1200px) {
+    width: 900px;
+  }
+}
 #add-function {
   display: block;
   height: 50px;
@@ -78,15 +87,6 @@ button {
   background-color: $black;
 }
 
-#moduleContent {
-  div {
-    canvas {
-      background: #111;
-      border: #535353 solid 1px;
-    }
-  }
-}
-
 input {
   color: $white;
   background-color: $black;
@@ -95,33 +95,24 @@ input {
 
 .status-icon {
   transition: ease-in-out 250ms;
-  display: inline-block;
-  margin: auto;
   padding: 10px;
   box-sizing: border-box;
-  border-radius: 100%;
   width: 50px;
   height: 50px;
+  margin: auto auto 15px;
+  border-radius: 100%;
+
 
   &.greenicon {
     background: #00ff09;
-    &:before {
-      content: "on";
-    }
   }
 
   &.redicon {
     background: #FF0000;
-    &:before {
-      content: "off";
-    }
   }
 
   &.unknownicon {
     background: #808080;
-    &:before {
-      content: "N/A";
-    }
   }
 }
 
@@ -149,6 +140,11 @@ input {
     font-family: $monospace;
     margin-top: -10px;
   }
+  #block-lastactive {
+    font-size: 1rem;
+    font-family: $monospace;
+    margin-top: -10px;
+  }
 }
 
 @media (min-width: 992px) {
@@ -171,5 +167,123 @@ input {
     font-size: 1rem;
     font-family: $monospace;
     margin-top: -10px;
+  }
+  #block-lastactive {
+    font-size: 1rem;
+    font-family: $monospace;
+    margin-top: -10px;
+  }
+}
+
+
+.set-button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #4E4E4E;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.state-button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #4E4E4E;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.diagram-button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #4E4E4E;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+//button:focus {
+//  border: none !important;
+//}
+
+div.dataentry {
+  margin: auto;
+  border: solid #535353 1px;
+  margin: 5px 20px 5px 20px;
+
+  background-image: linear-gradient(45deg, rgba(39, 42, 55, 0.92), rgba(30, 43, 56, 0.2));
+
+  @media (max-width: 576px) {
+    display: none;
+  }
+
+  @media (min-width: 576px ){
+    max-width: 250px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 300px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 600px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 900px;
+  }
+
+  div {
+    text-align: center;
+    font-size: 1.2rem;
+    //margin: 5px 5px 5px 5px;
+  }
+
+}
+
+.modal-content {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border: 3px solid rgb(17, 49, 75) !important;
+}
+
+.modal {
+  background-image: linear-gradient(45deg, rgba(39, 42, 55, .5), rgba(68, 86, 104, .2));
+}
+
+.modal-header {
+  background-image: linear-gradient(45deg, rgba(39, 42, 55, .75), rgba(68, 86, 104, .75));
+}
+
+.modal-body {
+  background-image: linear-gradient(45deg, rgba(39, 42, 55, 1), rgba(68, 86, 104, 1));
+}
+
+.modal-footer {
+  background-image: linear-gradient(45deg, rgba(39, 42, 55, .75), rgba(68, 86, 104, .75));
+}
+
+
+body {
+  background-image: linear-gradient(45deg, rgb(24, 25, 49), rgba(30, 81, 121, 1));
+}
+
+
+.graph {
+  width: 100%
+}
+
+
+.module-name {
+  border-bottom: 1px #535353 solid;
+  margin: 0 0 0 0 !important;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.13);
+}
+
+.module-content {
+  .graph-content {
+    padding: 10px 10px 10px 10px;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
+  .state-content {
+    border-bottom: 1px #535353 solid;
+    margin: 0 0 0 0 !important;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.13);
   }
 }

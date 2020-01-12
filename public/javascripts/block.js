@@ -1,4 +1,3 @@
-
 window._smartblocks.block = {
     localBlock: undefined,
 
@@ -16,26 +15,30 @@ window._smartblocks.block = {
 
             document.getElementById("block-mac").innerText = data.mac;
 
-            if(data.json.constructor === "".constructor){
+            if (data.json.constructor === "".constructor) {
                 data.json = JSON.parse(data.json);
             }
 
-            // logger.debug(data);
-
             _smartblocks.block.localBlock = data;
 
+            let lastactivedate = new Date(data.lastactive);
 
-            if (new Date(data.lastactive) < (new Date() - 5 * 1000)) {
+            document.getElementById("block-lastactive").innerText = lastactivedate.getDate() + "." + (lastactivedate.getMonth() + 1) + "." + lastactivedate.getFullYear() + " @ " +
+                (String(lastactivedate.getUTCHours()).length === 1 ? "0" + lastactivedate.getUTCHours() : lastactivedate.getUTCHours()) + ":" +
+                (String(lastactivedate.getUTCMinutes()).length === 1 ? "0" + lastactivedate.getUTCMinutes() : lastactivedate.getUTCMinutes()) + ":" +
+                (String(lastactivedate.getUTCSeconds()).length === 1 ? "0" + lastactivedate.getUTCSeconds() : lastactivedate.getUTCSeconds());
+
+            if (lastactivedate < (new Date() - 5 * 1000)) {
 
 
-                document.querySelectorAll(".block-status-line,.block-status-line-small").forEach(value => {
+                document.querySelectorAll(".block-status-line").forEach(value => {
                     if (!(value === undefined || value === null)) {
                         value.setAttribute("style", "border-top: 3px solid red;")
                     }
                 })
             } else {
 
-                document.querySelectorAll(".block-status-line,.block-status-line-small").forEach(value => {
+                document.querySelectorAll(".block-status-line").forEach(value => {
                     if (!(value === undefined || value === null)) {
                         value.setAttribute("style", "border-top: 1px solid #00FF00;")
                     }
@@ -61,8 +64,8 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your diagram"));
-        root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just a simple graph per time."));
+        root.appendChild(genElement("h3", "", "", "", "Configure your diagram"));
+        root.appendChild(genElement("p", "", "font-family: Arial ", "", "Theres not much to edit here, because this is just a simple graph per time."));
 
         let label = genElement("label");
         label.setAttribute("for", "id");
@@ -71,7 +74,7 @@ window._smartblocks.block = {
 
         root.appendChild(label);
 
-        let input = genElement("input", "" ,"color: white; background-color: black; border-width: 0");
+        let input = genElement("input", "", "color: white; background-color: black; border-width: 0");
         input.setAttribute("name", "id");
         input.setAttribute("placeholder", "Insert ID here");
 
@@ -91,11 +94,20 @@ window._smartblocks.block = {
 
             let root = document.getElementById("moduleContent");
 
-            let tmp = genElement("div","", "max-width: 500px; max-height: 200px;  margin: auto; padding: 5px", "" ,"");
+            // let tmp = genElement("div","", "max-width: 500px; max-height: 200px;  margin: auto; padding: 5px", "" ,"");
+            let tmp = genElement("div", "", "", "dataentry graph", "");
+
+            let holderchart = genElement("div", "", "", "module-content graph-content", "");
+            let holdername = genElement("div", "", "", "module-name", "" + dataendpoint);
+
             let tmp2 = genElement("canvas", "chart" + random);
             tmp2.setAttribute("width", "500");
             tmp2.setAttribute("height", "200");
-            tmp.appendChild(tmp2);
+            holderchart.appendChild(tmp2);
+
+
+            tmp.appendChild(holdername);
+            tmp.appendChild(holderchart);
 
             root.appendChild(tmp);
 
@@ -104,29 +116,31 @@ window._smartblocks.block = {
             let myChart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [-10, -9.5, -9, -8.5, -8 ,-7 ,-7.5, -7 ,-6.5 ,-6, -5.5, -5, -4.5, -4, -3.5, -3 ,-2.5 ,-2 ,-1.5 ,-1 ,-.5, 0],
+                    labels: [-10, -9.5, -9, -8.5, -8, -7.5, -7, -6.5, -6, -5.5, -5, -4.5, -4, -3.5, -3, -2.5, -2, -1.5, -1, -.5, 0].reverse(),
                     datasets: [{
-                        label: '-',
+                        label: 'Data',
                         data: [0],
-                        backgroundColor: [
-                            'rgba(17,202,212,0.2)'
-                        ],
-                        borderColor: [
-                            'rgba(17,202,212,1)'
-                        ],
-                        borderWidth: 1
+                        borderWidth: 0,
+                        backgroundColor: 'rgba(17,202,212,.5)',
+                        borderColor: 'rgba(17,202,212,1)',
+                        fill: true,
+                        // pointHitRadius: 10,
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     title: {
                         display: true,
-                        position: "top"
+                        position: "top",
+                        fontColor: "#cecece",
                     },
                     legend: {
                         display: false
                     },
                     tooltips: {
-                        enabled: false
+                        // enabled: true
+                        enabled: false // Buggy atm...
                     },
 
                     scales: {
@@ -134,17 +148,23 @@ window._smartblocks.block = {
                             display: true,
                             gridLines: {
                                 display: true,
-                                color: "#4b4b4b"
+                                color: "#cecece"
                             },
                             ticks: {
                                 stepSize: 0.5,
+                                reverse: true,
+                                fontColor: "#cecece",
                             }
                         }],
                         yAxes: [{
                             display: true,
                             gridLines: {
                                 display: true,
-                                color: "#4b4b4b"
+                                color: "#cecece",
+                                zeroLineColor: "#5c99c5",
+                            },
+                            ticks: {
+                                fontColor: "#cecece",
                             }
                         }]
                     }
@@ -152,18 +172,17 @@ window._smartblocks.block = {
             });
 
 
-
             setInterval(() => {
-                let threshold = 22;
+                let threshold = 24;
 
 
                 myChart.data.datasets.forEach((dataset) => {
-                    dataset.data.push(_smartblocks.block.localBlock.json[dataendpoint]);
-                    myChart.options.title.text = dataendpoint + ": " + _smartblocks.block.localBlock.json[dataendpoint];
+                    dataset.data.unshift(_smartblocks.block.localBlock.json[dataendpoint]);
+                    myChart.options.title.text = "" + _smartblocks.block.localBlock.json[dataendpoint];
 
 
-                    if(dataset.data.length > threshold){
-                        dataset.data.shift();
+                    if (dataset.data.length > threshold) {
+                        dataset.data.pop();
                     }
                 });
                 myChart.update();
@@ -180,9 +199,8 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your display"));
-        root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just 1 or 0."));
-
+        root.appendChild(genElement("h3", "", "", "", "Configure your display"));
+        root.appendChild(genElement("p", "", "font-family: Arial ", "", "Theres not much to edit here, because this is just 1 or 0."));
 
 
         let label = genElement("label");
@@ -194,7 +212,7 @@ window._smartblocks.block = {
 
         let id = genRandom(5);
 
-        let input = genElement("input", "" ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
+        let input = genElement("input", "", "color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
         input.setAttribute("name", "id");
         input.setAttribute("placeholder", "Insert ID here");
 
@@ -210,12 +228,12 @@ window._smartblocks.block = {
 
         labelcb.innerHTML = "Display advanced feature: &#160;";
 
-        let checkbox = genElement("input", "cb" + id ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
+        let checkbox = genElement("input", "cb" + id, "color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
         checkbox.setAttribute("type", "checkbox");
         checkbox.setAttribute("name", "ceckbox-advanced");
 
 
-        let equasion = genElement("input", "eq" + id  ,"color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
+        let equasion = genElement("input", "eq" + id, "color: white; background-color: black; border-width: 0; margin: 2px;", "", "");
         equasion.setAttribute("name", "equasion");
         equasion.setAttribute("hidden", "");
         equasion.value = "variable > 0";
@@ -225,7 +243,7 @@ window._smartblocks.block = {
             let checkbox = document.getElementById("cb" + id);
             let eq = document.getElementById("eq" + id);
 
-            if(checkbox.checked){
+            if (checkbox.checked) {
                 label.removeAttribute("hidden");
                 eq.removeAttribute("hidden");
             } else {
@@ -251,32 +269,43 @@ window._smartblocks.block = {
             let val = equasion.value;
 
             let root = document.getElementById("moduleContent");
-            if(val.length > 40){
+            if (val.length > 40) {
                 logger.error("Equasion is longer than 40 Characters! I am not evaluating this!");
                 return;
             }
             let lbody = "function (variable) { return " + (val === "" ? "false;" : val.endsWith(";") ? val : val + ";") + "}";
 
 
-            let lwrap = ()  => "{ return " + lbody + " };"; //return the block having function expression
-            let lequasion = new Function( lwrap(lbody) );
+            let lwrap = () => "{ return " + lbody + " };"; //return the block having function expression
+            let lequasion = new Function(lwrap(lbody));
 
-            let tmp = genElement("div","", "max-width: 400px; max-height: 200px; margin: auto; border: solid #535353 1px; background: black; padding: 5px 20px 5px 20px;", "" ,"");
-            tmp.appendChild(genElement("div", "digitalin_text" + random, "" , "" ,input.value ));
-            // tmp.appendChild(genElement("span", "digitalin" + random, "" , "" ,"N/A"));
+            let tmp = genElement("div", "", "", "dataentry state", "");
+            let holdername = genElement("div", "", "", "module-name", input.value);
+            let holdercontent = genElement("div", "", "", "module-content state-content", "");
+            tmp.appendChild(holdername);
+            tmp.appendChild(holdercontent);
 
+            let state =  genElement("div", "statusText"+random, "", "" ,"UNKOWN");
             let icon = document.createElement("div");
 
             icon.setAttribute("class", "unknownicon status-icon");
             icon.setAttribute("id", "statusIcon" + random);
 
-            tmp.appendChild(icon);
+            holdercontent.appendChild(state);
+            holdercontent.appendChild(icon);
 
 
             root.appendChild(tmp);
 
-            setInterval(() =>{
-                document.getElementById("statusIcon" + random).setAttribute("class", (lequasion.call(null).call(null, _smartblocks.block.localBlock.json[input.value]) ? "greenicon status-icon" : "redicon status-icon"));
+            setInterval(() => {
+                if (lequasion.call(null).call(null, _smartblocks.block.localBlock.json[input.value])) {
+                    document.getElementById("statusIcon" + random).setAttribute("class", "greenicon status-icon");
+                    document.getElementById("statusText" + random).innerText = "On";
+                } else {
+                    document.getElementById("statusIcon" + random).setAttribute("class", "redicon status-icon");
+                    document.getElementById("statusText" + random).innerText = "Off";
+                }
+
 
             }, 100);
         }));
@@ -290,9 +319,8 @@ window._smartblocks.block = {
         _smartblocks.clearChild(document.getElementById("addContent"));
 
         let root = genElement("div", "", "", "", "");
-        root.appendChild(genElement("h3", "","", "","Configure your set option"));
-        root.appendChild(genElement("p", "","font-family: Arial ", "","Theres not much to edit here, because this is just outputs 1 or 0."));
-
+        root.appendChild(genElement("h3", "", "", "", "Configure your set option"));
+        root.appendChild(genElement("p", "", "font-family: Arial ", "", "Theres not much to edit here, because this is just to set variables to specific value"));
 
 
         let label = genElement("label");
@@ -302,7 +330,7 @@ window._smartblocks.block = {
 
         root.appendChild(label);
 
-        let input = genElement("input", "" ,"color: white; background-color: black; border-width: 0", "", "");
+        let input = genElement("input", "", "color: white; background-color: black; border-width: 0", "", "");
         input.setAttribute("name", "id");
         input.setAttribute("placeholder", "Insert ID here");
 
@@ -314,13 +342,19 @@ window._smartblocks.block = {
 
             let root = document.getElementById("moduleContent");
 
-            let tmp = genElement("div","", "max-width: 400px; max-height: 200px; margin: auto; border: solid #535353 1px; background: black; padding: 5px 20px 5px 20px;", "" ,"");
+            // let tmp = genElement("div","", "max-width: 400px; max-height: 200px; margin: auto; border: solid #535353 1px; background: black; padding: 5px 20px 5px 20px;", "" ,"");
 
-            let text = genElement("span", "", "", "", "Set the value of " + input.value + " to ");
+
+            let holdercontent = genElement("div", "", "", "module-content setter-content", "");
+            let holdername = genElement("div", "", "", "module-name", "" + input.value);
+
+            let tmp = genElement("div", "", "", "dataentry", "");
+
+            // let text = genElement("span", "", "", "", "Set the value of " + input.value + " to ");
 
             let i = genElement("input", "value_out" + random, "", "", "");
 
-            let setbutton = genElement("button", "setbutton"+random, "" ,"", "Set!");
+            let setbutton = genElement("button", "setbutton" + random, "", "", "Set!");
 
             i.setAttribute("placeholder", "Value");
 
@@ -336,19 +370,16 @@ window._smartblocks.block = {
             });
 
 
+            // holdercontent.appendChild(text);
+            holdercontent.appendChild(i);
+            holdercontent.appendChild(setbutton);
 
-            text.appendChild(i);
-            text.appendChild(setbutton);
-
-            tmp.appendChild(text);
+            tmp.appendChild(holdername);
+            tmp.appendChild(holdercontent);
 
 
             root.appendChild(tmp);
             // root.appendChild(setbutton);
-
-
-
-
 
 
         }));
@@ -361,9 +392,8 @@ window._smartblocks.block = {
 };
 
 
-
-function format(date){
-    return (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) +":"+ (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes())  +":"+ (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()) +"."+ (date.getMilliseconds() < 10 ? "0" + date.getMilliseconds() : date.getMilliseconds());
+function format(date) {
+    return (date.getHours() < 10 ? "0" + date.getHours() : date.getHours()) + ":" + (date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes()) + ":" + (date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds()) + "." + (date.getMilliseconds() < 10 ? "0" + date.getMilliseconds() : date.getMilliseconds());
 }
 
 
@@ -394,13 +424,14 @@ function genElement(type, id, style, classes, content) {
     (content !== undefined && content !== "") ? tmp.innerText = content : false;
     return tmp;
 }
+
 function genRandom(length) {
     let alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
     let tmp = "";
     let i = 0;
 
-    while(i <= length){
+    while (i <= length) {
         i++;
         tmp += alphabet.charAt(Math.floor(Math.random() * alphabet.length));
     }

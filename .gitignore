@@ -86,3 +86,14 @@ fabric.properties
 # Markdown Navigator plugin
 .idea/**/markdown-navigator.xml
 .idea/**/markdown-navigator/
+
+.idea/dataSources.xml
+.idea/inspectionProfiles/
+.idea/webServers.xml
+config.json
+node_modules/
+public/sitemap.xml
+public/stylesheets/
+scss/assets/
+scss/stylesheets/test.http
+/.idea/deployment.xml

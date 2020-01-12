@@ -127,7 +127,7 @@ window._smartblocks = {
                                         id: block.mac,
                                         wave: VANTA.WAVES({
                                             el: html, // element id or DOM object reference
-                                            color: 0x121212,
+                                            color: 0x171f2b,
                                             waveHeight: 10,
                                             shininess: 50,
                                             waveSpeed: .75,
@@ -143,7 +143,7 @@ window._smartblocks = {
                                     id: block.mac,
                                     wave: VANTA.WAVES({
                                         el: html, // element id or DOM object reference
-                                        color: 0x121212,
+                                        color: 0x171f2b,
                                         waveHeight: 10,
                                         shininess: 50,
                                         waveSpeed: .75,
@@ -160,7 +160,7 @@ window._smartblocks = {
                                     id: block.mac,
                                     wave: VANTA.WAVES({
                                         el: html, // element id or DOM object reference
-                                        color: 0x121212,
+                                        color: 0x171f2b,
                                         waveHeight: 10,
                                         shininess: 50,
                                         waveSpeed: .75,
@@ -233,7 +233,6 @@ window._smartblocks = {
 
 
 window.addEventListener("load", () => {
-
     //
     // _smartblocks.loadBlocks();
     // setInterval(() => _smartblocks.loadBlocks(), 2500);
@@ -251,7 +250,7 @@ window.addEventListener("load", () => {
                             if (!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
                                 _smartblocks.waves.push(VANTA.WAVES({
                                     el: var2,
-                                    color: 0x121212,
+                                    color: 0x171f2b,
                                     waveHeight: 10,
                                     shininess: 50,
                                     waveSpeed: .75,
