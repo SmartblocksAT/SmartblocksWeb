@@ -202,22 +202,22 @@ input {
 //}
 
 div.dataentry {
-  margin: auto;
+  //margin: auto;
   border: solid #535353 1px;
   margin: 5px 20px 5px 20px;
 
   background-image: linear-gradient(45deg, rgba(39, 42, 55, 0.92), rgba(30, 43, 56, 0.2));
 
   @media (max-width: 576px) {
-    display: none;
+    //display: none;
   }
 
   @media (min-width: 576px ){
-    max-width: 250px;
+    max-width: 500px;
   }
 
   @media (min-width: 768px) {
-    max-width: 300px;
+    max-width: 500px;
   }
 
   @media (min-width: 992px) {
@@ -286,4 +286,8 @@ body {
     padding: 10px;
     background-color: rgba(0, 0, 0, 0.13);
   }
+}
+
+.pointy-cursor {
+  cursor: pointer;
 }

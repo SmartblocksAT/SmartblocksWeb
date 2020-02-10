@@ -18,13 +18,13 @@ router.get('/api/clientinfo', function (req, res) {
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
 router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res) {
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.all()
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => "+ err));
+        .catch(err => console.log("ERR => " + err));
 });
 
 // Status endpoint for a specific smartblock
@@ -39,7 +39,7 @@ router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req,
     if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
     db.get(mac)
         .then(dat => res.json(dat))
-        .catch(err => console.log("ERR => "+ err));
+        .catch(err => console.log("ERR => " + err));
 });
 
 // Update endpoint used by the webinterface to update every variable with one request
@@ -60,7 +60,7 @@ router.post('/api/update/:mac/', function (req, res) {
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => "+ err));
+        .catch(err => console.log("ERR => " + err));
 });
 
 // Update endpoint to update the Name of a smartblock. Primarily used by the webinterface
@@ -79,7 +79,7 @@ router.post('/api/update/:mac/name', function (req, res) {
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => "+ err));
+        .catch(err => console.log("ERR => " + err));
 });
 
 // Update endpoint to update a specific key of a specific smartblock
@@ -89,13 +89,14 @@ router.get('/api/update/:mac/entry/:key/:value', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.updateSingle(req.params.mac, req.params.key, req.params.value)
         .then(dat => {
             res.json(dat);
         })
         .catch(err => {
+            res.type("json");
             res.json(err);
         });
 });
@@ -106,13 +107,15 @@ router.post('/api/update/:mac/entry/:key/', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.updateSingle(req.params.mac, req.params.key, req.body.value)
         .then(dat => {
             res.json(dat);
         })
         .catch(err => {
+
+            res.type("json");
             res.json(err);
         });
 });
@@ -123,10 +126,13 @@ router.get('/api/get/:mac/entry/:key/', function (req, res) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
 
-    if(req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
+    if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
     db.getSingle(req.params.mac, req.params.key)
-        .then(dat => res.send(dat));
+        .then(dat => {
+            res.type("text");
+            res.send(dat);
+        });
 });
 
 

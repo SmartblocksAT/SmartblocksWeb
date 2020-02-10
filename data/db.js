@@ -39,7 +39,7 @@ module.exports.activity = (mac = undefined) => {
         if (mac === undefined) reject("esp_mac undefined!");
         if (typeof mac !== "string") mac = String(mac);
 
-        pool.query('UPDATE blocks SET `lastactive` = CURRENT_TIMESTAMP WHERE mac = ?;', mac, function (err) {
+        pool.query('UPDATE blocks SET `lastactive` = SYSDATE() WHERE mac = ?;', mac, function (err) {
             if (err) reject(err);
 
             resolve();
