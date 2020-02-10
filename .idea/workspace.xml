@@ -1,23 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/public/images/Logo_HTL.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/Logo_MT.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/public/images/qr.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="Development:&#10;Cleaned up unused and temporary content.&#10;&#10;Added:&#10;  &#10;Modified:&#10;&#10;Removed:&#10; - Removed unused and temporary content">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/db.js" beforeDir="false" afterPath="$PROJECT_DIR$/data/db.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ecosystem.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/ecosystem.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/block.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/block.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/imprint.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/imprint.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/block.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/block.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/javascripts/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/public/javascripts/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/stylesheets/block.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/stylesheets/block.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scss/stylesheets/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/scss/stylesheets/index.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -50,10 +38,10 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="CSS File" />
+        <option value="HTML File" />
         <option value="HTTP Request" />
         <option value="JavaScript File" />
         <option value="SCSS File" />
-        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -64,6 +52,11 @@
         <option value="Maximilian Mernacher &lt;maximilian.mernacher@htlwy.ac.at&gt;" />
       </list>
     </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="development" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="JsFlowSettings">
@@ -72,7 +65,7 @@
     <other-services-enabled>true</other-services-enabled>
     <auto-save>true</auto-save>
   </component>
-  <component name="ProjectId" id="1Wfi3jOwfcyuc25DhKukSxuP2Uz" />
+  <component name="ProjectId" id="1Xbeus4VQ1MBvV1MpXc7Em3BOjr" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -93,20 +86,20 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="com.intellij.ide.scratch.LRUPopupBuilder$1/New Scratch File" value="GenericSQL" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="javascript.nodejs.core.library.configured.version" value="10.16.3" />
+    <property name="javascript.nodejs.core.library.configured.version" value="13.8.0" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/node_modules" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/Program Files/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="reference.settings.project.statistic.project.settings" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -117,11 +110,11 @@
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\images" />
-      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public" />
       <recent name="C:\Users\herob\.IntelliJIdea2019.1\config\scratches" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\src" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\old_stuff" />
+      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\src\scss\stylesheets" />
+      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\images" />
     </key>
   </component>
   <component name="RestClientSettings">
@@ -154,18 +147,6 @@
         <item itemvalue="HTTP Request.test#1" />
       </list>
     </recent_temporary>
-  </component>
-  <component name="ServiceViewManager">
-    <option name="viewStates">
-      <list>
-        <serviceView>
-          <treeState>
-            <expand />
-            <select />
-          </treeState>
-        </serviceView>
-      </list>
-    </option>
   </component>
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
@@ -236,24 +217,10 @@
       <workItem from="1578413505640" duration="12769000" />
       <workItem from="1578474438226" duration="883000" />
       <workItem from="1578696948906" duration="637000" />
-      <workItem from="1578832675973" duration="7401000" />
-      <workItem from="1578912055298" duration="193000" />
-      <workItem from="1579209395173" duration="26000" />
-      <workItem from="1579246246679" duration="1172000" />
-      <workItem from="1579247689821" duration="596000" />
-      <workItem from="1579429931931" duration="2424000" />
-      <workItem from="1579461666952" duration="23000" />
-      <workItem from="1579546914412" duration="296000" />
-      <workItem from="1579547251222" duration="111000" />
-      <workItem from="1579547421538" duration="5844000" />
-      <workItem from="1579721631221" duration="224000" />
-      <workItem from="1579770813900" duration="6021000" />
-      <workItem from="1579802608799" duration="2090000" />
-      <workItem from="1579855802261" duration="9015000" />
-      <workItem from="1579936812089" duration="671000" />
-      <workItem from="1579969884619" duration="1203000" />
-      <workItem from="1580413496674" duration="23000" />
-      <workItem from="1580816233869" duration="98000" />
+      <workItem from="1578832675973" duration="3315000" />
+      <workItem from="1581319462325" duration="426000" />
+      <workItem from="1581320005789" duration="1944000" />
+      <workItem from="1581327597143" duration="233000" />
     </task>
     <task id="LOCAL-00001" summary="The Blocks identify themselves with their Mac-address instead of a predefined UUID.&#10;Users are now able to edit their block's name.&#10;Also introduced some minor bug-fixes like getting the status of the blocks two times a second instead of one.&#10;&#10;Added:&#10;  - Added the ability to update a block's name&#10;  - Added background while the actual particle background loads... Because why not.&#10;  &#10;Modified:&#10;  - The size of the smartblock's name on the main site is now appropriately scaled&#10;  - Font size and family are now reunited in their own css rule in block.css&#10;  - Also added the css rules for the name change buttons and text inputs&#10;  - Code cleanup in block.html and index.html&#10;  - The index route's variables now use &quot;let&quot; instead of &quot;var&quot;&#10;  - Moved the creation of the Database from the endpoint declaration into it's own function for easy editing&#10;  - Cleanup of some unused code&#10;  &#10;Removed:&#10;  - The IP-check for CloudFlare was removed&#10;  - Removed the idea of a custom logger. I'm probably going to add it back in later.&#10;&#10;Todo:&#10;  - The /api/update/:mac/entry/:key/:value endpoint actually does not update the key... yet.">
       <created>1572198833530</created>
@@ -276,14 +243,7 @@
       <option name="project" value="LOCAL" />
       <updated>1577230625881</updated>
     </task>
-    <task id="LOCAL-00004" summary="&#10;&#10;Added:&#10;  - Parsing Macs with : and -&#10;  &#10;Modified:&#10;  - The particle-settings are now one-liners&#10;  - Last active time is now displayed&#10;  - Hierarchy of html elements in the modules object&#10;  - Refined the look of the page. Now blueish. &#10;  - Moved styling in the scss files&#10;  - Printing error when mac does not fit the requirements&#10;  - Did some pirate things...&#10;  &#10;Removed:&#10;  - Unnecessary css class for small lines">
-      <created>1578838730205</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1578838730206</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -344,64 +304,44 @@
     <MESSAGE value="The Blocks identify themselves with their Mac-address instead of a predefined UUID.&#10;Users are now able to edit their block's name.&#10;Also introduced some minor bug-fixes like getting the status of the blocks two times a second instead of one.&#10;&#10;Added:&#10;  - Added the ability to update a block's name&#10;  - Added background while the actual particle background loads... Because why not.&#10;  &#10;Modified:&#10;  - The size of the smartblock's name on the main site is now appropriately scaled&#10;  - Font size and family are now reunited in their own css rule in block.css&#10;  - Also added the css rules for the name change buttons and text inputs&#10;  - Code cleanup in block.html and index.html&#10;  - The index route's variables now use &quot;let&quot; instead of &quot;var&quot;&#10;  - Moved the creation of the Database from the endpoint declaration into it's own function for easy editing&#10;  - Cleanup of some unused code&#10;  &#10;Removed:&#10;  - The IP-check for CloudFlare was removed&#10;  - Removed the idea of a custom logger. I'm probably going to add it back in later.&#10;&#10;Todo:&#10;  - The /api/update/:mac/entry/:key/:value endpoint actually does not update the key... yet." />
     <MESSAGE value="Refined the MAC-Address handling, added Google Analytics. Yes.&#10;Adjusted the language to be more consistent. Also tried to add a &#10;websocket server for the website to reduce the amount of HTTP-Request (WIP).&#10;&#10;Added:&#10;  - Google's Tag-Manager&#10;  - A 404 site.&#10;  - Loading Icon&#10;  - Specified a name for blocks without one&#10;  - The parsing of the 'r' url-parameter which displays the user, that this is on a new domain &#10;  - A simple imprint for legal reasons&#10;  - Websocketserver for testing purposes&#10;  &#10;Modified:&#10;  - Css is now rendered from scss in scss/*&#10;  - Everything is now in english&#10;  - Updated robots.txt to exclude errors&#10;  &#10;  &#10;Removed:&#10;  - Removed unnecessary debug statements&#10;  - Removed unnecessary conversions to JSON-Objects and vice versa&#10;  - Removed the populateJson test&#10;  - Removed pictures" />
     <MESSAGE value="Code-cleanup-time! &#10;The index router got cleaned up and (finally) the database-methods were moved to another file!&#10;The website fonts have been moved from scss to regular css, due to some errors.&#10;Advanced features are now optional for the true/false option in the webinterface. &#10;Also some labeling has happened.&#10;Added some debug to the front-end javascript. Just in case...&#10;Also set some alt-text for images. &#10;Removed some useless logging infos.&#10;Adjusted file spacing and layout. &#10;The clientinfo endpoint now shows CloudFlare infos.&#10;Adjusted the block styling to be more compact.&#10;Sass middleware's debug is now environment dependent.&#10;Redirected to the new 404 site, and 500 site. (On the apache webserver)&#10;&#10;Added:&#10; - Front-end debug &#10; - New db file&#10; - Advanced features&#10;  &#10;Modified:&#10; - Index-router looks better and content got moved to another file&#10; - Labeling on front end&#10; - Alt-text for images!&#10; - Clientinfo adjusted to reflect CloudFlare&#10; - Sass middleware's debug is now environment dependent&#10; - Fonts have been moved from scss to regular css&#10;  &#10;Removed:&#10; - Removed some useless logging infos" />
-    <MESSAGE value="&#10;&#10;Added:&#10;  - Parsing Macs with : and -&#10;  &#10;Modified:&#10;  - The particle-settings are now one-liners&#10;  - Last active time is now displayed&#10;  - Hierarchy of html elements in the modules object&#10;  - Refined the look of the page. Now blueish. &#10;  - Moved styling in the scss files&#10;  - Printing error when mac does not fit the requirements&#10;  - Did some pirate things...&#10;  &#10;Removed:&#10;  - Unnecessary css class for small lines" />
-    <option name="LAST_COMMIT_MESSAGE" value="&#10;&#10;Added:&#10;  - Parsing Macs with : and -&#10;  &#10;Modified:&#10;  - The particle-settings are now one-liners&#10;  - Last active time is now displayed&#10;  - Hierarchy of html elements in the modules object&#10;  - Refined the look of the page. Now blueish. &#10;  - Moved styling in the scss files&#10;  - Printing error when mac does not fit the requirements&#10;  - Did some pirate things...&#10;  &#10;Removed:&#10;  - Unnecessary css class for small lines" />
+    <MESSAGE value="Development:&#10;Cleaned up unused and temporary content.&#10;&#10;Added:&#10;  &#10;Modified:&#10;&#10;Removed:&#10; - Removed unused and temporary content" />
+    <option name="LAST_COMMIT_MESSAGE" value="Development:&#10;Cleaned up unused and temporary content.&#10;&#10;Added:&#10;  &#10;Modified:&#10;&#10;Removed:&#10; - Removed unused and temporary content" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="552" y="199" width="1122" height="682" key="#Plugins" timestamp="1579547362508">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="125" y="0" width="1726" height="1040" key="CommitChangelistDialog2" timestamp="1581327805149">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="552" y="199" width="1122" height="682" key="#Plugins/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579547362508" />
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1579882087021">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="125" y="0" width="1726" height="1040" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1581327805149" />
+    <state x="740" y="275" key="FileChooserDialogImpl" timestamp="1581319595523">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1579882087021">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="740" y="275" key="FileChooserDialogImpl/0.0.1920.1040@0.0.1920.1040" timestamp="1581319595523" />
+    <state width="1877" height="206" key="GridCell.Tab.0.bottom" timestamp="1581327651775">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1579882087021">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1877" height="206" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1581327651775" />
+    <state width="1877" height="206" key="GridCell.Tab.0.center" timestamp="1581327651775">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1579882087021">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1877" height="206" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1581327651775" />
+    <state width="1877" height="206" key="GridCell.Tab.0.left" timestamp="1581327651775">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state x="625" y="239" key="NewModule_or_Project.wizard" timestamp="1580816320527">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1877" height="206" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1581327651775" />
+    <state width="1877" height="206" key="GridCell.Tab.0.right" timestamp="1581327651775">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="625" y="239" key="NewModule_or_Project.wizard/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1580816320527" />
-    <state x="715" y="385" key="cloudConfig.PluginsDialog" timestamp="1579555170962">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state width="1877" height="206" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1581327651775" />
+    <state x="461" y="163" key="SettingsEditor" timestamp="1581319602669">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="715" y="385" key="cloudConfig.PluginsDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579555170962" />
-    <state x="715" y="385" key="cloudConfig.SelfSettingsDialog" timestamp="1579555156437">
-      <screen x="0" y="0" width="1920" height="1080" />
+    <state x="461" y="163" key="SettingsEditor/0.0.1920.1040@0.0.1920.1040" timestamp="1581319602669" />
+    <state x="715" y="365" key="cloudConfig.SelfSettingsDialog" timestamp="1581319659431">
+      <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state x="715" y="385" key="cloudConfig.SelfSettingsDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579555156437" />
-    <state x="92" y="92" width="1736" height="896" key="com.intellij.history.integration.ui.views.FileHistoryDialog" timestamp="1579802757277">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="92" y="92" width="1736" height="896" key="com.intellij.history.integration.ui.views.FileHistoryDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579802757277" />
-    <state x="769" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1579970618527">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="769" y="457" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579970618527" />
-    <state width="631" height="439" key="javadoc.popup.new" timestamp="1579971042362">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state width="631" height="439" key="javadoc.popup.new/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579971042362" />
-    <state x="616" y="250" key="run.anything.popup" timestamp="1579869682524">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="616" y="250" key="run.anything.popup/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579869682524" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1579548266599">
-      <screen x="0" y="0" width="1920" height="1080" />
-    </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579548266599" />
+    <state x="715" y="365" key="cloudConfig.SelfSettingsDialog/0.0.1920.1040@0.0.1920.1040" timestamp="1581319659431" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
