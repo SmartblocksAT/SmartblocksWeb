@@ -7,6 +7,7 @@ const indexRouter = require('./routes/index');
 const app = express();
 const compression = require('compression');
 
+require("./updater").init();
 
 require("./data/db").init();
 
