@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="Updated the updater">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
+    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="Removed the updater">
       <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/updater.js" beforeDir="false" afterPath="$PROJECT_DIR$/updater.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +240,7 @@
       <workItem from="1579969884619" duration="1203000" />
       <workItem from="1580413496674" duration="23000" />
       <workItem from="1580816233869" duration="98000" />
-      <workItem from="1581601837073" duration="9186000" />
+      <workItem from="1581601837073" duration="10068000" />
     </task>
     <task id="LOCAL-00001" summary="The Blocks identify themselves with their Mac-address instead of a predefined UUID.&#10;Users are now able to edit their block's name.&#10;Also introduced some minor bug-fixes like getting the status of the blocks two times a second instead of one.&#10;&#10;Added:&#10;  - Added the ability to update a block's name&#10;  - Added background while the actual particle background loads... Because why not.&#10;  &#10;Modified:&#10;  - The size of the smartblock's name on the main site is now appropriately scaled&#10;  - Font size and family are now reunited in their own css rule in block.css&#10;  - Also added the css rules for the name change buttons and text inputs&#10;  - Code cleanup in block.html and index.html&#10;  - The index route's variables now use &quot;let&quot; instead of &quot;var&quot;&#10;  - Moved the creation of the Database from the endpoint declaration into it's own function for easy editing&#10;  - Cleanup of some unused code&#10;  &#10;Removed:&#10;  - The IP-check for CloudFlare was removed&#10;  - Removed the idea of a custom logger. I'm probably going to add it back in later.&#10;&#10;Todo:&#10;  - The /api/update/:mac/entry/:key/:value endpoint actually does not update the key... yet.">
       <created>1572198833530</created>
@@ -287,7 +284,21 @@
       <option name="project" value="LOCAL" />
       <updated>1581606042450</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Updated the updater">
+      <created>1581611055444</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1581611055444</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Removed the updater">
+      <created>1581611776039</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1581611776039</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -318,6 +329,17 @@
         <entry key="MAIN">
           <value>
             <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/development" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
               <option name="COLUMN_ORDER" />
             </State>
           </value>
@@ -328,7 +350,13 @@
       <map>
         <entry key="Branch">
           <value>
-            <list />
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/development" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
         <entry key="User">
@@ -351,7 +379,8 @@
     <MESSAGE value="&#10;&#10;Added:&#10;  - Parsing Macs with : and -&#10;  &#10;Modified:&#10;  - The particle-settings are now one-liners&#10;  - Last active time is now displayed&#10;  - Hierarchy of html elements in the modules object&#10;  - Refined the look of the page. Now blueish. &#10;  - Moved styling in the scss files&#10;  - Printing error when mac does not fit the requirements&#10;  - Did some pirate things...&#10;  &#10;Removed:&#10;  - Unnecessary css class for small lines" />
     <MESSAGE value="Added a prototype updater" />
     <MESSAGE value="Updated the updater" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated the updater" />
+    <MESSAGE value="Removed the updater" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed the updater" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -364,10 +393,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="199" width="1122" height="682" key="#Plugins/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579547362508" />
-    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2" timestamp="1581611021616">
+    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2" timestamp="1581611054139">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581611021616" />
+    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581611054139" />
     <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1581606431053">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -452,10 +481,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="671" y="251" key="RollbackChangesDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605607125" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1581606046182">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1581611060466">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606046182" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581611060466" />
     <state x="715" y="385" key="cloudConfig.PluginsDialog" timestamp="1579555170962">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
