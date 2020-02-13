@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/updater.js" afterDir="false" />
+    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="Updated the updater">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/www" beforeDir="false" afterPath="$PROJECT_DIR$/bin/www" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/updater.js" beforeDir="false" afterPath="$PROJECT_DIR$/updater.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +53,7 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -243,7 +243,7 @@
       <workItem from="1579969884619" duration="1203000" />
       <workItem from="1580413496674" duration="23000" />
       <workItem from="1580816233869" duration="98000" />
-      <workItem from="1581601837073" duration="4173000" />
+      <workItem from="1581601837073" duration="9186000" />
     </task>
     <task id="LOCAL-00001" summary="The Blocks identify themselves with their Mac-address instead of a predefined UUID.&#10;Users are now able to edit their block's name.&#10;Also introduced some minor bug-fixes like getting the status of the blocks two times a second instead of one.&#10;&#10;Added:&#10;  - Added the ability to update a block's name&#10;  - Added background while the actual particle background loads... Because why not.&#10;  &#10;Modified:&#10;  - The size of the smartblock's name on the main site is now appropriately scaled&#10;  - Font size and family are now reunited in their own css rule in block.css&#10;  - Also added the css rules for the name change buttons and text inputs&#10;  - Code cleanup in block.html and index.html&#10;  - The index route's variables now use &quot;let&quot; instead of &quot;var&quot;&#10;  - Moved the creation of the Database from the endpoint declaration into it's own function for easy editing&#10;  - Cleanup of some unused code&#10;  &#10;Removed:&#10;  - The IP-check for CloudFlare was removed&#10;  - Removed the idea of a custom logger. I'm probably going to add it back in later.&#10;&#10;Todo:&#10;  - The /api/update/:mac/entry/:key/:value endpoint actually does not update the key... yet.">
       <created>1572198833530</created>
@@ -280,7 +280,14 @@
       <option name="project" value="LOCAL" />
       <updated>1581605369014</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Added a prototype updater">
+      <created>1581606042450</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1581606042450</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -343,7 +350,8 @@
     <MESSAGE value="Code-cleanup-time! &#10;The index router got cleaned up and (finally) the database-methods were moved to another file!&#10;The website fonts have been moved from scss to regular css, due to some errors.&#10;Advanced features are now optional for the true/false option in the webinterface. &#10;Also some labeling has happened.&#10;Added some debug to the front-end javascript. Just in case...&#10;Also set some alt-text for images. &#10;Removed some useless logging infos.&#10;Adjusted file spacing and layout. &#10;The clientinfo endpoint now shows CloudFlare infos.&#10;Adjusted the block styling to be more compact.&#10;Sass middleware's debug is now environment dependent.&#10;Redirected to the new 404 site, and 500 site. (On the apache webserver)&#10;&#10;Added:&#10; - Front-end debug &#10; - New db file&#10; - Advanced features&#10;  &#10;Modified:&#10; - Index-router looks better and content got moved to another file&#10; - Labeling on front end&#10; - Alt-text for images!&#10; - Clientinfo adjusted to reflect CloudFlare&#10; - Sass middleware's debug is now environment dependent&#10; - Fonts have been moved from scss to regular css&#10;  &#10;Removed:&#10; - Removed some useless logging infos" />
     <MESSAGE value="&#10;&#10;Added:&#10;  - Parsing Macs with : and -&#10;  &#10;Modified:&#10;  - The particle-settings are now one-liners&#10;  - Last active time is now displayed&#10;  - Hierarchy of html elements in the modules object&#10;  - Refined the look of the page. Now blueish. &#10;  - Moved styling in the scss files&#10;  - Printing error when mac does not fit the requirements&#10;  - Did some pirate things...&#10;  &#10;Removed:&#10;  - Unnecessary css class for small lines" />
     <MESSAGE value="Added a prototype updater" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a prototype updater" />
+    <MESSAGE value="Updated the updater" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the updater" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
@@ -356,30 +364,30 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="552" y="199" width="1122" height="682" key="#Plugins/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1579547362508" />
-    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2" timestamp="1581605668833">
+    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2" timestamp="1581611021616">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605668833" />
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1581605952625">
+    <state x="244" y="41" width="1637" height="1031" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581611021616" />
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom" timestamp="1581606431053">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="211" key="GridCell.Tab.0.bottom/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.bottom/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605952625" />
-    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1581605952624">
+    <state width="1877" height="211" key="GridCell.Tab.0.bottom/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606431053" />
+    <state width="1877" height="211" key="GridCell.Tab.0.center" timestamp="1581606431053">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="211" key="GridCell.Tab.0.center/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.center/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605952624" />
-    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1581605952624">
+    <state width="1877" height="211" key="GridCell.Tab.0.center/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606431053" />
+    <state width="1877" height="211" key="GridCell.Tab.0.left" timestamp="1581606431053">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="211" key="GridCell.Tab.0.left/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.left/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605952624" />
-    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1581605952624">
+    <state width="1877" height="211" key="GridCell.Tab.0.left/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606431053" />
+    <state width="1877" height="211" key="GridCell.Tab.0.right" timestamp="1581606431053">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state width="1877" height="211" key="GridCell.Tab.0.right/0.0.1920.1080/1920.0.1920.1080@0.0.1920.1080" timestamp="1579882087021" />
-    <state width="1877" height="211" key="GridCell.Tab.0.right/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605952624" />
+    <state width="1877" height="211" key="GridCell.Tab.0.right/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606431053" />
     <state width="1877" height="266" key="GridCell.Tab.1.bottom" timestamp="1581602104642">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -444,10 +452,10 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="671" y="251" key="RollbackChangesDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605607125" />
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1581605756148">
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2" timestamp="1581606046182">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="552" y="262" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581605756148" />
+    <state x="552" y="262" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1581606046182" />
     <state x="715" y="385" key="cloudConfig.PluginsDialog" timestamp="1579555170962">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>

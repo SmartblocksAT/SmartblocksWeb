@@ -3,11 +3,12 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
-const indexRouter = require('./routes/index');
-const app = express();
 const compression = require('compression');
 
-require("./updater").init();
+const indexRouter = require('./routes/index');
+
+
+const app = express();
 
 require("./data/db").init();
 
