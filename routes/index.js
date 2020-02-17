@@ -1,5 +1,6 @@
-let express = require('express');
-let router = express.Router();
+const express = require('express');
+const createError = require('http-errors');
+const router = express.Router();
 
 let db = require("../data/db");
 
@@ -16,7 +17,7 @@ router.get('/api/clientinfo', function (req, res) {
 });
 
 // Status endpoint, used by the webinterface to retrieve information for displaying the data
-router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res) {
+router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, res, next) {
 
     if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
 
@@ -24,14 +25,13 @@ router.get(['/api/status/all/status.json', '/api/status/all/'], function (req, r
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => " + err));
+        .catch(err => next(createError(err)));
 });
 
 // Status endpoint for a specific smartblock
-router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req, res) {
+router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req, res, next) {
     while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
-
     }
 
     let mac = req.params.mac;
@@ -39,11 +39,11 @@ router.get(['/api/status/:mac/status.json', '/api/status/:mac/'], function (req,
     if (req.header("x-arduino-id") !== undefined) db.activity(req.header("x-arduino-id")).catch(err => console.error(err));
     db.get(mac)
         .then(dat => res.json(dat))
-        .catch(err => console.log("ERR => " + err));
+        .catch(err => next(createError(err)));
 });
 
 // Update endpoint used by the webinterface to update every variable with one request
-router.post('/api/update/:mac/', function (req, res) {
+router.post('/api/update/:mac/', function (req, res, next) {
 
     while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
@@ -60,11 +60,11 @@ router.post('/api/update/:mac/', function (req, res) {
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => " + err));
+        .catch(err => next(createError(err)));
 });
 
 // Update endpoint to update the Name of a smartblock. Primarily used by the webinterface
-router.post('/api/update/:mac/name', function (req, res) {
+router.post('/api/update/:mac/name', function (req, res, next) {
     while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
@@ -79,7 +79,7 @@ router.post('/api/update/:mac/name', function (req, res) {
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => console.log("ERR => " + err));
+        .catch(err => next(createError(err)));
 });
 
 // Update endpoint to update a specific key of a specific smartblock
