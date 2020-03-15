@@ -46,7 +46,7 @@ app.use('/', indexRouter);
 
 
 // error handler
-// noinspection JSUnusedLocalSymbols Express wont use this error handler if the err, req, res, next
+// noinspection JSUnusedLocalSymbols Express wont use this error handler if the next parameter is missing.
 app.use(function (err, req, res, next) {
     if (req.xhr) {
         res.status(err.status).send({ error: err.status,  message: err.message});

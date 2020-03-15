@@ -349,9 +349,8 @@ window._smartblocks.block = {
 
             let i = genElement("input", "value_out" + random, "", "", "");
 
-            let setbutton = genElement("button", "setbutton" + random, "", "", "Set!");
+            let setbutton = genElement("button", "content" + random, "", "", "Set!");
 
-            i.setAttribute("placeholder", "Value");
 
             setbutton.addEventListener("click", () => {
                 $.ajax({
@@ -363,6 +362,62 @@ window._smartblocks.block = {
 
             holdercontent.appendChild(i);
             holdercontent.appendChild(setbutton);
+
+            tmp.appendChild(holdername);
+            tmp.appendChild(holdercontent);
+
+
+            root.appendChild(tmp);
+        }));
+
+
+        document.getElementById("addContent").appendChild(root);
+    },
+    showText: () => {
+
+        _smartblocks.clearChild(document.getElementById("addContent"));
+
+        let root = genElement("div", "", "", "", "");
+        root.appendChild(genElement("h3", "", "", "", "Configure your set option"));
+        root.appendChild(genElement("p", "", "font-family: Arial ", "", "Theres not much to edit here, because this is just to show the variables content"));
+
+
+        let label = genElement("label");
+        label.setAttribute("for", "id");
+
+        label.innerText = "ID: ";
+
+        root.appendChild(label);
+
+        let input = genElement("input", "", "color: white; background-color: black; border-width: 0", "", "");
+        input.setAttribute("name", "id");
+        input.setAttribute("placeholder", "Insert ID here");
+
+        root.appendChild(input);
+
+        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
+            let random = genRandom(5);
+
+            const inputval = input.value;
+
+            let root = document.getElementById("moduleContent");
+
+
+            let holdercontent = genElement("div", "", "", "module-content setter-content", "");
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+
+            let tmp = genElement("div", "main" + random, "", "dataentry", "");
+
+
+
+            let content = genElement("textarea", "content" + random, "", "", "");
+
+            setInterval(() => {
+                content.innerText = _smartblocks.block.localBlock.json[inputval];
+            }, 500);
+
+
+            holdercontent.appendChild(content);
 
             tmp.appendChild(holdername);
             tmp.appendChild(holdercontent);

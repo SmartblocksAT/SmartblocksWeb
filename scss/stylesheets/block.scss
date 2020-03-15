@@ -196,11 +196,17 @@ input {
   margin-left: 10px;
   margin-right: 10px;
 }
+.text-button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #4E4E4E;
+  margin-left: 10px;
+  margin-right: 10px;
+}
 
-//button:focus {
-//  border: none !important;
-//}
-
+textarea {
+  background: #000000;
+  border: 0;
+}
 div.dataentry {
   //margin: auto;
   border: solid #535353 1px;
