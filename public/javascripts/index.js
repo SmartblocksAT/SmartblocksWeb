@@ -4,6 +4,7 @@ window._smartblocks = {
     waves: [],
     lastdata: [],
     debug: false,
+    refreshtime: 250,
 
     loadScript: (url) => {
         logger.debug("Trying to load a script from " + url);
@@ -263,7 +264,7 @@ window.addEventListener("load", () => {
                     })
             });
 
-        setInterval(() => _smartblocks.loadBlocks(), 2500);
+        setInterval(() => _smartblocks.loadBlocks(), _smartblocks.refreshtime);
 
     }
 

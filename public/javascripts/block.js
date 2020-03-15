@@ -1,7 +1,6 @@
 window._smartblocks.block = {
     localBlock: undefined,
 
-
     loadBlock: () => {
 
 
@@ -21,12 +20,15 @@ window._smartblocks.block = {
 
             _smartblocks.block.localBlock = data;
 
+
             let lastactivedate = new Date(data.lastactive);
 
-            document.getElementById("block-lastactive").innerText = lastactivedate.getDate() + "." + (lastactivedate.getMonth() + 1) + "." + lastactivedate.getFullYear() + " @ " +
-                (String(lastactivedate.getUTCHours()).length === 1 ? "0" + lastactivedate.getUTCHours() : lastactivedate.getUTCHours()) + ":" +
-                (String(lastactivedate.getUTCMinutes()).length === 1 ? "0" + lastactivedate.getUTCMinutes() : lastactivedate.getUTCMinutes()) + ":" +
-                (String(lastactivedate.getUTCSeconds()).length === 1 ? "0" + lastactivedate.getUTCSeconds() : lastactivedate.getUTCSeconds());
+            // document.getElementById("block-lastactive").innerText = lastactivedate.getDate() + "." + (lastactivedate.getMonth() + 1) + "." + lastactivedate.getFullYear() + " @ " +
+            //     (String(lastactivedate.getUTCHours()).length === 1 ? "0" + lastactivedate.getUTCHours() : lastactivedate.getUTCHours()) + ":" +
+            //     (String(lastactivedate.getUTCMinutes()).length === 1 ? "0" + lastactivedate.getUTCMinutes() : lastactivedate.getUTCMinutes()) + ":" +
+            //     (String(lastactivedate.getUTCSeconds()).length === 1 ? "0" + lastactivedate.getUTCSeconds() : lastactivedate.getUTCSeconds());
+
+            document.getElementById("block-lastactive").innerText = lastactivedate.toLocaleDateString("de-AT", {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'});
 
             if (lastactivedate < (new Date() - 5 * 1000)) {
 
@@ -48,7 +50,6 @@ window._smartblocks.block = {
         });
 
     },
-
     changeName: () => {
 
         $.ajax({
@@ -58,7 +59,6 @@ window._smartblocks.block = {
         })
 
     },
-
     addDiagram: () => {
 
         _smartblocks.clearChild(document.getElementById("addContent"));
@@ -95,10 +95,10 @@ window._smartblocks.block = {
             let root = document.getElementById("moduleContent");
 
             // let tmp = genElement("div","", "max-width: 500px; max-height: 200px;  margin: auto; padding: 5px", "" ,"");
-            let tmp = genElement("div", "", "", "dataentry graph", "");
+            let tmp = genElement("div", "main" + random, "", "dataentry graph", "");
 
             let holderchart = genElement("div", "", "", "module-content graph-content", "");
-            let holdername = genElement("div", "", "", "module-name", "" + dataendpoint);
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + dataendpoint + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
 
             let tmp2 = genElement("canvas", "chart" + random);
             tmp2.setAttribute("width", "500");
@@ -193,7 +193,6 @@ window._smartblocks.block = {
         document.getElementById("addContent").appendChild(root);
 
     },
-
     addState: () => {
 
         _smartblocks.clearChild(document.getElementById("addContent"));
@@ -279,8 +278,8 @@ window._smartblocks.block = {
             let lwrap = () => "{ return " + lbody + " };"; //return the block having function expression
             let lequasion = new Function(lwrap(lbody));
 
-            let tmp = genElement("div", "", "", "dataentry state", "");
-            let holdername = genElement("div", "", "", "module-name", input.value);
+            let tmp = genElement("div", "main" + random, "", "dataentry state", "");
+            let holdername = genElementWithOnClick("div", "", "", "module-name", input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
             let holdercontent = genElement("div", "", "", "module-content state-content", "");
             tmp.appendChild(holdername);
             tmp.appendChild(holdercontent);
@@ -313,7 +312,6 @@ window._smartblocks.block = {
 
         document.getElementById("addContent").appendChild(root);
     },
-
     addDOUT: () => {
 
         _smartblocks.clearChild(document.getElementById("addContent"));
@@ -342,35 +340,26 @@ window._smartblocks.block = {
 
             let root = document.getElementById("moduleContent");
 
-            // let tmp = genElement("div","", "max-width: 400px; max-height: 200px; margin: auto; border: solid #535353 1px; background: black; padding: 5px 20px 5px 20px;", "" ,"");
-
 
             let holdercontent = genElement("div", "", "", "module-content setter-content", "");
-            let holdername = genElement("div", "", "", "module-name", "" + input.value);
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
 
-            let tmp = genElement("div", "", "", "dataentry", "");
+            let tmp = genElement("div", "main" + random, "", "dataentry", "");
 
-            // let text = genElement("span", "", "", "", "Set the value of " + input.value + " to ");
 
             let i = genElement("input", "value_out" + random, "", "", "");
 
-            let setbutton = genElement("button", "setbutton" + random, "", "", "Set!");
+            let setbutton = genElement("button", "content" + random, "", "", "Set!");
 
-            i.setAttribute("placeholder", "Value");
 
             setbutton.addEventListener("click", () => {
-                // $.get("/api/update/" + _smartblocks.block.localBlock.mac + "/entry/" + input.value + "/" + i.value);
-                // alert("test")
                 $.ajax({
                     method: "POST",
                     url: "/api/update/" + _smartblocks.block.localBlock.mac + "/entry/" + input.value,
                     data: {value: i.value}
                 })
-
             });
 
-
-            // holdercontent.appendChild(text);
             holdercontent.appendChild(i);
             holdercontent.appendChild(setbutton);
 
@@ -379,16 +368,67 @@ window._smartblocks.block = {
 
 
             root.appendChild(tmp);
-            // root.appendChild(setbutton);
-
-
         }));
 
 
         document.getElementById("addContent").appendChild(root);
     },
+    showText: () => {
+
+        _smartblocks.clearChild(document.getElementById("addContent"));
+
+        let root = genElement("div", "", "", "", "");
+        root.appendChild(genElement("h3", "", "", "", "Configure your set option"));
+        root.appendChild(genElement("p", "", "font-family: Arial ", "", "Theres not much to edit here, because this is just to show the variables content"));
 
 
+        let label = genElement("label");
+        label.setAttribute("for", "id");
+
+        label.innerText = "ID: ";
+
+        root.appendChild(label);
+
+        let input = genElement("input", "", "color: white; background-color: black; border-width: 0", "", "");
+        input.setAttribute("name", "id");
+        input.setAttribute("placeholder", "Insert ID here");
+
+        root.appendChild(input);
+
+        root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
+            let random = genRandom(5);
+
+            const inputval = input.value;
+
+            let root = document.getElementById("moduleContent");
+
+
+            let holdercontent = genElement("div", "", "", "module-content setter-content", "");
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+
+            let tmp = genElement("div", "main" + random, "", "dataentry", "");
+
+
+
+            let content = genElement("textarea", "content" + random, "", "", "");
+
+            setInterval(() => {
+                content.innerText = _smartblocks.block.localBlock.json[inputval];
+            }, 500);
+
+
+            holdercontent.appendChild(content);
+
+            tmp.appendChild(holdername);
+            tmp.appendChild(holdercontent);
+
+
+            root.appendChild(tmp);
+        }));
+
+
+        document.getElementById("addContent").appendChild(root);
+    },
 };
 
 
@@ -412,7 +452,7 @@ function getParameter(param) {
 window.addEventListener("load", () => {
 
     if (location.pathname === "/block") {
-        setInterval(() => _smartblocks.block.loadBlock(), 1000);
+        setInterval(() => _smartblocks.block.loadBlock(), _smartblocks.refreshtime);
     }
 });
 
@@ -421,7 +461,7 @@ function genElement(type, id, style, classes, content) {
     (classes !== undefined && classes !== "") ? tmp.setAttribute("class", classes) : false;
     (style !== undefined && style !== "") ? tmp.setAttribute("style", style) : false;
     (id !== undefined && id !== "") ? tmp.setAttribute("id", id) : false;
-    (content !== undefined && content !== "") ? tmp.innerText = content : false;
+    (content !== undefined && content !== "") ? tmp.innerHTML = content : false;
     return tmp;
 }
 
@@ -446,7 +486,7 @@ function genElementWithOnClick(type, id, style, classes, content, code) {
     (classes !== undefined && classes !== "") ? tmp.setAttribute("class", classes) : false;
     (style !== undefined && style !== "") ? tmp.setAttribute("style", style) : false;
     (id !== undefined && id !== "") ? tmp.setAttribute("id", id) : false;
-    (content !== undefined && content !== "") ? tmp.innerText = content : false;
+    (content !== undefined && content !== "") ? tmp.innerHTML = content : false;
     (code !== undefined && code !== "") ? tmp.onclick = code : false;
     return tmp;
 }

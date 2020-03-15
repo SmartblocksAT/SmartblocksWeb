@@ -217,3 +217,9 @@ $background_color: #111111;
 body {
   background-image: linear-gradient(45deg, rgb(24, 25, 49), rgba(30, 81, 121, 1));
 }
+
+#ip img {
+  width: 25px !important;
+  height: auto;
+  margin-top: 6px !important;
+}

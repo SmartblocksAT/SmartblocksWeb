@@ -76,6 +76,8 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml
 # *.ipr
+/.idea/deployment.xml
+
 
 # Sonarlint plugin
 .idea/**/sonarlint/
@@ -94,6 +96,6 @@ config.json
 node_modules/
 public/sitemap.xml
 public/stylesheets/
+scss/
 scss/assets/
 scss/stylesheets/test.http
-/.idea/deployment.xml
