@@ -17,7 +17,7 @@ As soon as the project was successfully submitted, the existing elements of the 
 # Components
 This Project consists of two Components:
 
- - The web interface (this repository)
+ - The webinterface (this repository)
  - ESP32 Library (this repository can be found [here](https://github.com/SmartblocksAT/SmartblocksLibrary))
 
 ## Who is responsible for this?
