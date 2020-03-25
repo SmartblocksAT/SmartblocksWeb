@@ -18,7 +18,7 @@ As soon as the project was successfully submitted, the existing elements of the 
 This Project consists of two Components:
 
  - The web interface (this repository)
- - ESP32 Library (this repository can be found [here](https://github.com/SmartblocksAT/SmartblocksLibrary)
+ - ESP32 Library (this repository can be found [here](https://github.com/SmartblocksAT/SmartblocksLibrary))
 
 ## Who is responsible for this?
 Lukas Kamleitner <lukas.kamleitner@smartblocks.dev>
