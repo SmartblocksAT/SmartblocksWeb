@@ -1,3 +1,4 @@
+// noinspection JSConstantReassignment
 window.logger = {
 
     INFO: {
@@ -13,7 +14,7 @@ window.logger = {
         "background": "#00000000"
     },
     DEBUG: {
-        "foreground": "#005491",
+        "foreground": "#005491FF",
         "background": "#00000000"
     },
 
@@ -43,7 +44,7 @@ window.logger = {
     },
 
     debug: function (msg) {
-        if (window._smartblocks === "undefined" || window._smartblocks.debug === false) return;
+        if (window._smartblocks === "undefined" || !window._smartblocks.debug) return;
 
         if (typeof msg === "object") {
             console.debug(msg);

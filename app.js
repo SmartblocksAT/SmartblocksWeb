@@ -21,10 +21,6 @@ app.use(
 );
 
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});
 app.use(compression());
 // app.use(logger('dev'));
 // app.use(logger('":method :url HTTP/:http-version" :status ":user-agent" :req[X-Forwarded-For]'));
@@ -41,6 +37,10 @@ app.use(express.static(path.join(__dirname, 'public'), {
     extensions: ['html', 'htm'],
 }));
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    next();
+});
 
 app.use('/', indexRouter);
 

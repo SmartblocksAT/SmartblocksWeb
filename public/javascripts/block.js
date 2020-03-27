@@ -1,5 +1,6 @@
 window._smartblocks.block = {
     localBlock: undefined,
+    refreshtime: 250,
 
     loadBlock: () => {
 
@@ -450,9 +451,8 @@ function getParameter(param) {
 
 
 window.addEventListener("load", () => {
-
     if (location.pathname === "/block") {
-        setInterval(() => _smartblocks.block.loadBlock(), _smartblocks.refreshtime);
+        setInterval(() => _smartblocks.block.loadBlock(), _smartblocks.block.refreshtime);
     }
 });
 

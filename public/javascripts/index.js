@@ -4,7 +4,7 @@ window._smartblocks = {
     waves: [],
     lastdata: [],
     debug: false,
-    refreshtime: 250,
+    refreshtime: 2000,
 
     loadScript: (url) => {
         logger.debug("Trying to load a script from " + url);
@@ -33,20 +33,19 @@ window._smartblocks = {
 
 
             logger.debug("Trying to figure out if any blocks were added or removed from the database.");
-            for (let block in data) {
-                block = data[block];
+            for (let block of data) {
 
                 let contains = false;
 
 
-                for (let blocktocheck in _smartblocks.lastdata) {
-                    blocktocheck = _smartblocks.lastdata[blocktocheck];
+                for (let blocktocheck of _smartblocks.lastdata) {
                     if (block.mac === blocktocheck.mac) {
                         contains = true;
                         break;
                     }
                 }
                 if (contains) {
+                    // noinspection JSUnresolvedVariable
                     if (new Date(block.lastactive) < (new Date() - 5 * 1000)) {
 
 
@@ -72,12 +71,11 @@ window._smartblocks = {
 
             }
 
-            for (let blocktocheck in _smartblocks.lastdata) {
-                blocktocheck = _smartblocks.lastdata[blocktocheck];
+            for (let blocktocheck of _smartblocks.lastdata) {
 
                 let contains = false;
 
-                for (let block in data) {
+                for (let block of data) {
                     block = data[block];
                     if (block.mac === blocktocheck.mac) {
                         contains = true;
@@ -88,17 +86,15 @@ window._smartblocks = {
                 if (contains) {
 
                 } else {
-                    logger.debug("Deleted block " + block.mac + " detected! Removing it from the list.");
+                    logger.debug("Deleted block " + blocktocheck.mac + " detected! Removing it from the list.");
                     delblocks.push(blocktocheck);
                 }
 
             }
 
-            for (let block in delblocks) {
-                block = delblocks[block];
+            for (let block of delblocks) {
 
-                for (let wave in  _smartblocks.waves) {
-                    wave = _smartblocks.waves[wave];
+                for (let wave of _smartblocks.waves) {
                     if (wave.id === block.mac) {
                         wave.wave.destroy();
 
@@ -112,8 +108,7 @@ window._smartblocks = {
                 })
             }
 
-            for (let block in newblocks) {
-                block = newblocks[block];
+            for (let block of newblocks) {
 
                 let html = _smartblocks.genBlock(block.name ? block.name : "Unknown", block.mac);
 
@@ -181,12 +176,16 @@ window._smartblocks = {
         })
     },
     genBlock: (blockname, blockid) => {
+        if (blockname === undefined || blockid === undefined) {
+            logger.error("blockname and/or blockid cannot be undefined.");
+            return;
+        }
         logger.debug("Generating a block for " + blockname + " [" + blockid + "]");
-        let root = document.createElement("div");
-        let icon = document.createElement("div");
-        let img = document.createElement("img");
-        let text = document.createElement("p");
-        let button = document.createElement("button");
+        let root = document.createElement("div"),
+            icon = document.createElement("div"),
+            img = document.createElement("img"),
+            text = document.createElement("p"),
+            button = document.createElement("button");
 
 
         root.setAttribute("class", "card");
@@ -228,9 +227,6 @@ window._smartblocks = {
     }
 
 };
-
-
-
 
 
 window.addEventListener("load", () => {
@@ -279,8 +275,8 @@ window.addEventListener("load", () => {
     });
 
     let redirection = getParameter("r");
-    if(redirection !== undefined){
-        if(redirection === "R_OLD"){
+    if (redirection !== undefined) {
+        if (redirection === "R_OLD") {
             document.getElementById("errtext").innerText = "You were on the old site! You have been automatically redirected!";
             document.getElementById("errtext").removeAttribute("hidden");
         }

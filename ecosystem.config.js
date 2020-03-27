@@ -13,7 +13,6 @@ module.exports = {
             NODE_ENV: 'development',
             PORT: 8082,
             DEBUG: 'express:*'
-
         },
         env: {
             NODE_ENV: 'production',
