@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="" />
-    <list id="685d699e-7f6f-4daf-9367-19046b378d3e" name="Revert &quot;Updated 404 page to redirect to wiki instead of local docs. Removed a bunch of junk like unused images and fonts. The block page now refreshes the status every 250ms, the main page every 2 seconds. The dynamic creating and removing of blocks on the main page was improved. It's also not generating any block if some of the parameters are undefined. There was a useless false check in logger.js. The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints. A gitconfig file&quot;" comment="Revert &quot;Updated 404 page to redirect to wiki instead of local docs. Removed a bunch of junk like unused images and fonts. The block page now refreshes the status every 250ms, the main page every 2 seconds. The dynamic creating and removing of blocks on the main page was improved. It's also not generating any block if some of the parameters are undefined. There was a useless false check in logger.js. The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints. A gitconfig file&quot;&#10;&#10;This reverts commit 76e7d94a">
+    <list default="true" id="f7c0a143-7ea2-4bc6-ac9c-425d6b4eb325" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/public/images/Smartblock_vert.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
+    <list id="685d699e-7f6f-4daf-9367-19046b378d3e" name="Revert &quot;Updated 404 page to redirect to wiki instead of local docs. Removed a bunch of junk like unused images and fonts. The block page now refreshes the status every 250ms, the main page every 2 seconds. The dynamic creating and removing of blocks on the main page was improved. It's also not generating any block if some of the parameters are undefined. There was a useless false check in logger.js. The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints. A gitconfig file&quot;" comment="Revert &quot;Updated 404 page to redirect to wiki instead of local docs. Removed a bunch of junk like unused images and fonts. The block page now refreshes the status every 250ms, the main page every 2 seconds. The dynamic creating and removing of blocks on the main page was improved. It's also not generating any block if some of the parameters are undefined. There was a useless false check in logger.js. The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints. A gitconfig file&quot;&#10;&#10;This reverts commit 76e7d94a" />
     <list id="672ed5dd-d308-4bc0-8167-4e76929047c4" name="Revert &quot;Updated README&quot;" comment="Revert &quot;Updated README&quot;&#10;&#10;This reverts commit c1907b46" />
     <list id="396d2a12-fe26-4085-b401-8629565c5b2d" name="Updated 404 page to redirect to wiki instead of local docs. Removed a bunch of junk like unused images and fonts. The block page now refreshes the status every 250ms, the main page every 2 seconds. The dynamic creating and removing of blocks on the main page was improved. It's also not generating any block if some of the parameters are undefined. There was a useless false check in logger.js. The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints. A gitconfig file" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -55,63 +56,6 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>esp_mac undefined</find>
-      <find>db.activity(req.header(&quot;x-arduino-id&quot;))</find>
-      <find>pool.query(&quot;SELECT EXISTS</find>
-      <find>JSON.pa</find>
-      <find>api/status/</find>
-      <find>max</find>
-      <find>status-icon</find>
-      <find>border</find>
-      <find>vanta</find>
-      <find>VANTA</find>
-      <find>0x121212</find>
-      <find>.card</find>
-      <find>body {</find>
-      <find>.modal-</find>
-      <find>datae</find>
-      <find>181931</find>
-      <find>block-status</find>
-      <find>P</find>
-      <find>111</find>
-      <find>background-</find>
-      <find>background</find>
-      <find>\n</find>
-      <find />
-      <find>lastactive</find>
-      <find>db.activity(req.header(&quot;x-arduino-id&quot;));</find>
-      <find>digital</find>
-      <find>module-content</find>
-      <find>module</find>
-      <find>graph-</find>
-      <find>set</find>
-    </findStrings>
-    <replaceStrings>
-      <replace />
-      <replace>-</replace>
-      <replace>mac</replace>
-      <replace>connection.query('UPDATE `smartblocks`.`blocks` SET lastactive = CURRENT_TIMESTAMP WHERE mac = ?;', [req.params.mac]);</replace>
-      <replace>heigth</replace>
-      <replace>height</replace>
-      <replace>data</replace>
-      <replace>.json</replace>
-      <replace>let</replace>
-      <replace>400</replace>
-      <replace>$background_color</replace>
-      <replace>$black</replace>
-      <replace>$almost_black</replace>
-      <replace>Mechatronics</replace>
-      <replace>pool</replace>
-      <replace>blocks</replace>
-      <replace>&amp;#160;</replace>
-      <replace>if(req.header(&quot;x-arduino-id&quot;) !== undefined) db.activity(req.header(&quot;x-arduino-id&quot;));</replace>
-      <replace>0x181931</replace>
-      <replace>171f2b</replace>
-      <replace>db.activity(req.header(&quot;x-arduino-id&quot;)).catch(err =&gt; console.error(err));</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="PREVIOUS_COMMIT_AUTHORS">
       <list>
@@ -120,6 +64,7 @@
       </list>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="JsFlowSettings">
     <service-enabled>true</service-enabled>
@@ -151,13 +96,13 @@
     <property name="database.console.LAST_STATE" value="false" />
     <property name="javascript.nodejs.core.library.configured.version" value="10.16.3" />
     <property name="jsx.switch.disabled" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$/.ssh/id_rsa" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/images" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="nodejs_interpreter_path" value="node" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="C:/Program Files/nodejs/node" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
@@ -166,11 +111,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\images" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\scss\stylesheets" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\src\scss\assets" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\stylesheets" />
       <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\node_modules" />
-      <recent name="D:\Coding\IntelliJ\workspaces\web\ESP_Webinterface_V2\public\images" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\herob\.IntelliJIdea2019.1\config\scratches" />
@@ -289,7 +234,11 @@
       <workItem from="1584572125937" duration="212000" />
       <workItem from="1584610547654" duration="7524000" />
       <workItem from="1584725333877" duration="38000" />
-      <workItem from="1585339081999" duration="1174000" />
+      <workItem from="1585339081999" duration="1438000" />
+      <workItem from="1585485950121" duration="103000" />
+      <workItem from="1585559756257" duration="1752000" />
+      <workItem from="1585742235214" duration="1255000" />
+      <workItem from="1585854261573" duration="676000" />
     </task>
     <task id="LOCAL-00001" summary="The Blocks identify themselves with their Mac-address instead of a predefined UUID.&#10;Users are now able to edit their block's name.&#10;Also introduced some minor bug-fixes like getting the status of the blocks two times a second instead of one.&#10;&#10;Added:&#10;  - Added the ability to update a block's name&#10;  - Added background while the actual particle background loads... Because why not.&#10;  &#10;Modified:&#10;  - The size of the smartblock's name on the main site is now appropriately scaled&#10;  - Font size and family are now reunited in their own css rule in block.css&#10;  - Also added the css rules for the name change buttons and text inputs&#10;  - Code cleanup in block.html and index.html&#10;  - The index route's variables now use &quot;let&quot; instead of &quot;var&quot;&#10;  - Moved the creation of the Database from the endpoint declaration into it's own function for easy editing&#10;  - Cleanup of some unused code&#10;  &#10;Removed:&#10;  - The IP-check for CloudFlare was removed&#10;  - Removed the idea of a custom logger. I'm probably going to add it back in later.&#10;&#10;Todo:&#10;  - The /api/update/:mac/entry/:key/:value endpoint actually does not update the key... yet.">
       <created>1572198833530</created>
@@ -333,7 +282,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585340004491</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Updated 404 page to redirect to wiki instead of local docs.&#10;Removed a bunch of junk like unused images and fonts.&#10;The block page now refreshes the status every 250ms, the main page every 2 seconds.&#10;The dynamic creating and removing of blocks on the main page was improved.&#10;It's also not generating any block if some of the parameters are undefined.&#10;There was a useless false check in logger.js.&#10;The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints.&#10;&#10;Added: &#10;  &#10;Modified:&#10; - Moved the Acces-Control header to the right location.&#10; - Dynamic block creation on the main page.&#10; - Added check for undefined parameters.&#10; - 404 site's footer redirects to the proper page.&#10; - Block refresh on the main page is 2000ms, 250ms on blocks &#10;  &#10;Removed:&#10; - Unused images and fonts&#10; - A useless false check">
+      <created>1585340340108</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1585340340108</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="4">
@@ -395,11 +351,20 @@
     <MESSAGE value="Refined the MAC-Address handling, added Google Analytics. Yes.&#10;Adjusted the language to be more consistent. Also tried to add a &#10;websocket server for the website to reduce the amount of HTTP-Request (WIP).&#10;&#10;Added:&#10;  - Google's Tag-Manager&#10;  - A 404 site.&#10;  - Loading Icon&#10;  - Specified a name for blocks without one&#10;  - The parsing of the 'r' url-parameter which displays the user, that this is on a new domain &#10;  - A simple imprint for legal reasons&#10;  - Websocketserver for testing purposes&#10;  &#10;Modified:&#10;  - Css is now rendered from scss in scss/*&#10;  - Everything is now in english&#10;  - Updated robots.txt to exclude errors&#10;  &#10;  &#10;Removed:&#10;  - Removed unnecessary debug statements&#10;  - Removed unnecessary conversions to JSON-Objects and vice versa&#10;  - Removed the populateJson test&#10;  - Removed pictures" />
     <MESSAGE value="Code-cleanup-time! &#10;The index router got cleaned up and (finally) the database-methods were moved to another file!&#10;The website fonts have been moved from scss to regular css, due to some errors.&#10;Advanced features are now optional for the true/false option in the webinterface. &#10;Also some labeling has happened.&#10;Added some debug to the front-end javascript. Just in case...&#10;Also set some alt-text for images. &#10;Removed some useless logging infos.&#10;Adjusted file spacing and layout. &#10;The clientinfo endpoint now shows CloudFlare infos.&#10;Adjusted the block styling to be more compact.&#10;Sass middleware's debug is now environment dependent.&#10;Redirected to the new 404 site, and 500 site. (On the apache webserver)&#10;&#10;Added:&#10; - Front-end debug &#10; - New db file&#10; - Advanced features&#10;  &#10;Modified:&#10; - Index-router looks better and content got moved to another file&#10; - Labeling on front end&#10; - Alt-text for images!&#10; - Clientinfo adjusted to reflect CloudFlare&#10; - Sass middleware's debug is now environment dependent&#10; - Fonts have been moved from scss to regular css&#10;  &#10;Removed:&#10; - Removed some useless logging infos" />
     <MESSAGE value="Removed Websocket functionality. We never used websockets...&#10;&#10;Added:&#10;  &#10;Modified:&#10;  &#10;Removed:&#10; - Websocketserver" />
-    <option name="LAST_COMMIT_MESSAGE" value="Removed Websocket functionality. We never used websockets...&#10;&#10;Added:&#10;  &#10;Modified:&#10;  &#10;Removed:&#10; - Websocketserver" />
+    <MESSAGE value="Removed Websocket functionality. We never used websockets...&#10;Also removed old &quot;documentation&quot; which was effectively just some unrelated examples.&#10;&#10;Added:&#10;  &#10;Modified:&#10;  &#10;Removed:&#10; - Websocketserver&#10; - Docs (Examples)" />
+    <MESSAGE value="Updated 404 page to redirect to wiki instead of local docs.&#10;Removed a bunch of junk like unused images and fonts.&#10;The block page now refreshes the status every 250ms, the main page every 2 seconds.&#10;The dynamic creating and removing of blocks on the main page was improved.&#10;It's also not generating any block if some of the parameters are undefined.&#10;There was a useless false check in logger.js.&#10;The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints.&#10;A gitconfig file &#10;&#10;Added: &#10; - gitconfig file&#10;  &#10;Modified:&#10; - Moved the Acces-Control header to the right location.&#10; - Dynamic block creation on the main page.&#10; - Added check for undefined parameters.&#10; - 404 site's footer redirects to the proper page.&#10; - Block refresh on the main page is 2000ms, 250ms on blocks &#10;  &#10;Removed:&#10; - Unused images and fonts&#10; - A useless false check" />
+    <MESSAGE value="Updated 404 page to redirect to wiki instead of local docs.&#10;Removed a bunch of junk like unused images and fonts.&#10;The block page now refreshes the status every 250ms, the main page every 2 seconds.&#10;The dynamic creating and removing of blocks on the main page was improved.&#10;It's also not generating any block if some of the parameters are undefined.&#10;There was a useless false check in logger.js.&#10;The CORS Access-Control-Allow-Origin header was moved to only apply to the API endpoints.&#10;&#10;Added: &#10;  &#10;Modified:&#10; - Moved the Acces-Control header to the right location.&#10; - Dynamic block creation on the main page.&#10; - Added check for undefined parameters.&#10; - 404 site's footer redirects to the proper page.&#10; - Block refresh on the main page is 2000ms, 250ms on blocks &#10;  &#10;Removed:&#10; - Unused images and fonts&#10; - A useless false check" />
+    <MESSAGE value="Added the vertical logo for github to this repository. &#10;&#10;Added: &#10; - The vertical logo  &#10;Modified:&#10;  &#10;Removed:" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the vertical logo for github to this repository. &#10;&#10;Added: &#10; - The vertical logo  &#10;Modified:&#10;  &#10;Removed:" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="552" y="198" key="#Project_Structure" timestamp="1585339808125">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="552" y="198" key="#Project_Structure/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585339808125" />
     <state x="552" y="198" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1584380139107">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -412,20 +377,20 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="495" y="207" key="#com.intellij.tools.ToolEditorDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1584558124565" />
-    <state x="222" y="0" width="1560" height="1080" key="CommitChangelistDialog2" timestamp="1585340031099">
+    <state x="209" y="0" width="1560" height="1080" key="CommitChangelistDialog2" timestamp="1585855040425">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="158" y="0" width="1429" height="1080" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1584552405213" />
-    <state x="222" y="0" width="1560" height="1080" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340031099" />
+    <state x="209" y="0" width="1560" height="1080" key="CommitChangelistDialog2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585855040425" />
     <state x="92" y="92" width="1736" height="896" key="DiffContextDialog" timestamp="1585340299747">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="92" y="92" width="1736" height="896" key="DiffContextDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340299747" />
-    <state x="537" y="262" key="FileChooserDialogImpl" timestamp="1584571401965">
+    <state x="537" y="262" key="FileChooserDialogImpl" timestamp="1585760498125">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="537" y="262" key="FileChooserDialogImpl/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1584558090870" />
-    <state x="537" y="262" key="FileChooserDialogImpl/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1584571401965" />
+    <state x="537" y="262" key="FileChooserDialogImpl/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585760498125" />
     <state width="1877" height="68" key="GridCell.Tab.0.bottom" timestamp="1584381482624">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -459,11 +424,11 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="0" y="435" key="VCS.EditChangelistDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340114641" />
-    <state x="552" y="272" key="Vcs.Push.Dialog.v2" timestamp="1584552623274">
+    <state x="552" y="272" key="Vcs.Push.Dialog.v2" timestamp="1585340419708">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="-1368" y="272" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@-1920.0.1920.1080" timestamp="1584552417756" />
-    <state x="552" y="272" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1584552623274" />
+    <state x="552" y="272" key="Vcs.Push.Dialog.v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340419708" />
     <state x="151" y="91" width="1736" height="896" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1585340299747">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
@@ -472,14 +437,22 @@
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="92" y="92" width="1736" height="896" key="com.intellij.history.integration.ui.views.FileHistoryDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340257068" />
+    <state x="769" y="456" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1585340370146">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="769" y="456" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585340370146" />
     <state x="709" y="331" key="git4idea.merge.GitMergeDialog" timestamp="1584289129315">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
     <state x="709" y="331" key="git4idea.merge.GitMergeDialog/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1584289129315" />
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1584289138933">
+    <state x="342" y="242" key="new project wizard" timestamp="1585760516691">
       <screen x="0" y="0" width="1920" height="1080" />
     </state>
-    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1584289138933" />
+    <state x="342" y="242" key="new project wizard/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585760516691" />
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1585760456554">
+      <screen x="0" y="0" width="1920" height="1080" />
+    </state>
+    <state x="623" y="235" width="672" height="678" key="search.everywhere.popup/1920.1.1920.1080/0.0.1920.1080/-1920.0.1920.1080@0.0.1920.1080" timestamp="1585760456554" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
@@ -512,90 +485,5 @@
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
     </expressions>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>ESP_Webinterface_V2</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectJDKs.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
