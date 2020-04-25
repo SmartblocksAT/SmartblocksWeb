@@ -29,7 +29,14 @@ window._smartblocks.block = {
             //     (String(lastactivedate.getUTCMinutes()).length === 1 ? "0" + lastactivedate.getUTCMinutes() : lastactivedate.getUTCMinutes()) + ":" +
             //     (String(lastactivedate.getUTCSeconds()).length === 1 ? "0" + lastactivedate.getUTCSeconds() : lastactivedate.getUTCSeconds());
 
-            document.getElementById("block-lastactive").innerText = lastactivedate.toLocaleDateString("de-AT", {day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'});
+            document.getElementById("block-lastactive").innerText = lastactivedate.toLocaleDateString("de-AT", {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
 
             if (lastactivedate < (new Date() - 5 * 1000)) {
 
@@ -99,7 +106,9 @@ window._smartblocks.block = {
             let tmp = genElement("div", "main" + random, "", "dataentry graph", "");
 
             let holderchart = genElement("div", "", "", "module-content graph-content", "");
-            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + dataendpoint + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + dataendpoint + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {
+                document.getElementById("main" + random).remove();
+            });
 
             let tmp2 = genElement("canvas", "chart" + random);
             tmp2.setAttribute("width", "500");
@@ -280,12 +289,14 @@ window._smartblocks.block = {
             let lequasion = new Function(lwrap(lbody));
 
             let tmp = genElement("div", "main" + random, "", "dataentry state", "");
-            let holdername = genElementWithOnClick("div", "", "", "module-name", input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+            let holdername = genElementWithOnClick("div", "", "", "module-name", input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {
+                document.getElementById("main" + random).remove();
+            });
             let holdercontent = genElement("div", "", "", "module-content state-content", "");
             tmp.appendChild(holdername);
             tmp.appendChild(holdercontent);
 
-            let state =  genElement("div", "statusText"+random, "", "" ,"UNKOWN");
+            let state = genElement("div", "statusText" + random, "", "", "UNKOWN");
             let icon = document.createElement("div");
 
             icon.setAttribute("class", "unknownicon status-icon");
@@ -338,12 +349,15 @@ window._smartblocks.block = {
         root.appendChild(genElementWithOnClick("button", "", "", "", "Add!", () => {
             let random = genRandom(5);
 
+            let variable = input.value;
 
             let root = document.getElementById("moduleContent");
 
 
             let holdercontent = genElement("div", "", "", "module-content setter-content", "");
-            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {
+                document.getElementById("main" + random).remove();
+            });
 
             let tmp = genElement("div", "main" + random, "", "dataentry", "");
 
@@ -356,7 +370,7 @@ window._smartblocks.block = {
             setbutton.addEventListener("click", () => {
                 $.ajax({
                     method: "POST",
-                    url: "/api/update/" + _smartblocks.block.localBlock.mac + "/entry/" + input.value,
+                    url: "/api/update/" + _smartblocks.block.localBlock.mac + "/entry/" + variable,
                     data: {value: i.value}
                 })
             });
@@ -405,10 +419,11 @@ window._smartblocks.block = {
 
 
             let holdercontent = genElement("div", "", "", "module-content setter-content", "");
-            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {document.getElementById("main" + random).remove();});
+            let holdername = genElementWithOnClick("div", "", "", "module-name", "" + input.value + "<span class='pointy-cursor' style=\"padding-left: 10px; right:0; float:right\">&times;</span>", () => {
+                document.getElementById("main" + random).remove();
+            });
 
             let tmp = genElement("div", "main" + random, "", "dataentry", "");
-
 
 
             let content = genElement("textarea", "content" + random, "", "", "");
@@ -453,6 +468,18 @@ function getParameter(param) {
 window.addEventListener("load", () => {
     if (location.pathname === "/block") {
         setInterval(() => _smartblocks.block.loadBlock(), _smartblocks.block.refreshtime);
+
+        let btn = $("#resetbutton");
+        let mac = getParameter("b");
+        alert(mac);
+        btn.on('click', () => {
+            $.ajax({
+                type: "POST",
+                url: "https://smartblocks.dev/api/update/" + mac,
+                data: {name: $("#block-name").text(), json: {}}
+            });
+        });
+        btn.removeAttr("disabled");
     }
 });
 

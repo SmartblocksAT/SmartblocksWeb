@@ -48,13 +48,14 @@ app.use('/', indexRouter);
 // error handler
 // noinspection JSUnusedLocalSymbols Express wont use this error handler if the next parameter is missing.
 app.use(function (err, req, res, next) {
+    err.statusCode = err.statusCode === undefined ? 500 : err.statusCode;
     if (req.xhr) {
-        res.status(err.status).send({ error: err.status,  message: err.message});
+        res.status(err.statusCode).send({error: err.status, message: err.message});
     } else {
         if(process.env.NODE_ENV === "development"){
-            res.status(err.status).send("<h1>" + err.status + " - " + err.message + "</h1><br><pre>" + err.stackTrace + "</pre>");
+            res.status(err.statusCode).send("<h1>" + err.status + " - " + err.message + "</h1><br><pre>" + err.stackTrace + "</pre>");
         } else {
-            res.status(err.status).send("<h1>" + err.status + " - " + err.message + "</h1>");
+            res.status(err.statusCode).send("<h1>" + err.status + " - " + err.message + "</h1>");
         }
     }
 });

@@ -116,6 +116,10 @@ input {
   }
 }
 
+.block-title {
+  display: flex;
+}
+
 @media (max-width: 992px) {
   .block-title {
     font-size: 1.5rem;
@@ -296,4 +300,11 @@ body {
 
 .pointy-cursor {
   cursor: pointer;
+}
+
+.reset-button {
+  background-color: rgba(0, 0, 0, 0.2);
+  border: 1px solid #4E4E4E;
+  font-size: 1rem;
+  align-self: center;
 }

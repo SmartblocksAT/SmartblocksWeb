@@ -48,19 +48,32 @@ router.post('/api/update/:mac/', function (req, res, next) {
     while (req.params.mac.indexOf(":") >= 1) {
         req.params.mac = req.params.mac.replace(":", "-");
     }
-
+/*
+Post data needs to be in this format:
+{
+    "name": "<new name>",
+    "json": "<new json>"
+}
+ */
 
     let mac = req.params.mac;
 
+    if (req.body.json === undefined) req.body.json = {};
+
     if (req.header("x-smartblock-id") !== undefined) db.activity(req.header("x-smartblock-id")).catch(err => console.error(err));
-    let data = JSON.stringify(req.body);
+    let data = JSON.stringify(req.body.json);
     let name = req.body.name;
+
+    data = data === undefined ? {} : data;
+
 
     db.updateAll(mac, data, name)
         .then(dat => {
             res.json(dat);
         })
-        .catch(err => next(createError(err)));
+        .catch(err => {
+            next(createError(err))
+        });
 });
 
 // Update endpoint to update the Name of a smartblock. Primarily used by the webinterface
