@@ -471,7 +471,6 @@ window.addEventListener("load", () => {
 
         let btn = $("#resetbutton");
         let mac = getParameter("b");
-        alert(mac);
         btn.on('click', () => {
             $.ajax({
                 type: "POST",
