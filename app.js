@@ -2,14 +2,12 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const sassMiddleware = require('node-sass-middleware');
+const sassMiddleware = require('./middleware/sass-middleware');
 const compression = require('compression');
 
 const indexRouter = require('./routes/index');
 
-
 const app = express();
-
 require("./data/db").init();
 
 app.use(
@@ -19,7 +17,6 @@ app.use(
         debug: process.env.NODE_ENV === "development",
     })
 );
-
 
 app.use(compression());
 // app.use(logger('dev'));
@@ -44,9 +41,8 @@ app.use(function(req, res, next) {
 
 app.use('/', indexRouter);
 
-
 // error handler
-// noinspection JSUnusedLocalSymbols Express wont use this error handler if the next parameter is missing.
+// noinspection JSUnusedLocalSymbols Express wont use this error handler if the "next" parameter is missing.
 app.use(function (err, req, res, next) {
     err.statusCode = err.statusCode === undefined ? 500 : err.statusCode;
     if (req.xhr) {
